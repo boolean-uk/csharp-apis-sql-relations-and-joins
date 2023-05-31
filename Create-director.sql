@@ -1,0 +1,5 @@
+-- create table director (
+--     director_id serial PRIMARY KEY,
+--     director_name VARCHAR (50) not null,
+--     director_coutry VARCHAR (50) not null --
+-- );
