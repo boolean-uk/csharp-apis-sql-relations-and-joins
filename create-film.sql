@@ -1,0 +1,10 @@
+-- create table film (
+--     film_id serial PRIMARY KEY,
+--     film_title VARCHAR (50) not null,
+--     film_year INTEGER not null,
+--     film_score INTEGER not null,
+--     film_genre VARCHAR (50) not null,
+--     directorFK INTEGER,
+--     starFK INTEGER,
+--     writterFK INTEGER --
+-- );

@@ -1,0 +1,6 @@
+--Show directors and film titles for films with a score of 8 or higher
+-- select d.director_name, f.film_title,f.film_score
+-- from film f
+-- left join director d on d.director_id = f.directorfk
+-- where f.film_score >=8
+-- order by film_score 
