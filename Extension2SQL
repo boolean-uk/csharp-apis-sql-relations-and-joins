@@ -1,0 +1,30 @@
+------------------------------Extension2------------------------------------------------------
+--creating the cast table -> using FilmCast instead of cast -> https://www.w3schools.com/sql/func_sqlserver_cast.asp
+CREATE TABLE FilmCast (
+    CastID SERIAL PRIMARY KEY,
+    FilmID INT,
+    PersonID INT,
+    FOREIGN KEY (FilmID) REFERENCES Film(FilmID),
+    FOREIGN KEY (PersonID) REFERENCES People(PersonID)
+);
+
+--adding some starwars actors
+INSERT INTO People (Name) VALUES 
+('Mark Hamill'),
+('Harrison Ford'),
+('Carrie Fisher'),
+('Alec Guinness'),
+('Peter Cushing'),
+('David Prowse'),
+('Anthony Daniels'),
+('Kenny Baker'),
+('Peter Mayhew');
+
+-- link actors to the film of star wars: a new hope
+INSERT INTO FilmCast (FilmID, PersonID) SELECT 2, PersonID FROM People 
+WHERE Name IN ('Mark Hamill', 'Harrison Ford', 'Carrie Fisher', 'Alec Guinness', 'Peter Cushing', 
+ 'David Prowse', 'Anthony Daniels', 'Kenny Baker', 'Peter Mayhew');
+ */
+----------------------------------------------------------------------------------------------
+|               Screenshots will be added in next commit                                     |
+----------------------------------------------------------------------------------------------
