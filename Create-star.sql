@@ -1,0 +1,5 @@
+-- create table star (
+    -- star_id serial PRIMARY KEY,
+    -- star_name VARCHAR (50) not null,
+    -- star_dob DATE not null 
+--);

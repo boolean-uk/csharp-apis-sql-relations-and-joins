@@ -1,0 +1,5 @@
+-- create table writter (
+--     writter_id serial PRIMARY KEY,
+--     writter_name VARCHAR (50) not null,
+--     writter_email VARCHAR (50) not null --
+-- );
