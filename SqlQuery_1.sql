@@ -142,7 +142,38 @@ WHERE Director.country = 'UK';
 
 --Refactor the database tables so that the Actors, Directors and Writers all identify people (using a Foreign Key) that are present in a --single People table
 
--- I do not understand the exercise
+
+-- CREATE TABLE Person (
+-- personID serial primary key,
+-- name VARCHAR(255) not null
+-- );
+
+-- CREATE TABLE Role (
+-- roleID serial primary key,
+-- rolename VARCHAR(255) not null
+-- );
+
+-- CREATE TABLE PersonRoleMapping (
+-- mappingID serial primary key,
+-- personID INT not null,
+-- RoleID INT not null
+-- );
+
+-- INSERT INTO Role (rolename) VALUES ('Director'),
+-- ('Star'),('Writer');
+
+-- INSERT INTO Person (name) 
+-- SELECT castlist.name
+-- FROM castlist;
+
+-- INSERT INTO Person (name) 
+-- SELECT director.name
+-- FROM director;
+
+-- INSERT INTO Personrolemapping (personID, roleID) 
+-- SELECT Person.personID, Role.roleID
+-- FROM Person, Role;
+
 
 --------------Extension 2------------------
 
