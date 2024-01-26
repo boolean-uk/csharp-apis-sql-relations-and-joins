@@ -1,0 +1,2 @@
+--II. Show the title, director and star name for all films
+--SELECT film.title, director.name, star.name FROM film INNER JOIN director ON film.director_id=director.id JOIN star ON film.star_id=star.id 
