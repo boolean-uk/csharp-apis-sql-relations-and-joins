@@ -7,9 +7,9 @@ CREATE TABLE film (
   director_id INT,
   star_id INT,
   writer_id INT,
-  FOREIGN KEY (director_id) REFERENCES Director(director_id),
-  FOREIGN KEY (star_id) REFERENCES Star(star_id),
-  FOREIGN KEY (writer_id) REFERENCES Writer(writer_id)
+  FOREIGN KEY (director_id) REFERENCES director(director_id),
+  FOREIGN KEY (star_id) REFERENCES star(star_id),
+  FOREIGN KEY (writer_id) REFERENCES writer(writer_id)
 );
 
 
