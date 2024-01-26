@@ -1,0 +1,10 @@
+INSERT INTO stars (name, star_dob) VALUES ('Keir Dullea', '1936-05-30');
+INSERT INTO stars (name, star_dob) VALUES ('Mark Hamill', '1951-09-25');
+INSERT INTO stars (name, star_dob) VALUES ('Gregory Peck', '1916-04-05');
+INSERT INTO stars (name, star_dob) VALUES ('Leonardo DiCaprio', '1974-11-11');
+INSERT INTO stars (name, star_dob) VALUES ('Julie Christie', '1940-04-14');
+INSERT INTO stars (name, star_dob) VALUES ('Charlton Heston', '1923-10-04');
+INSERT INTO stars (name, star_dob) VALUES ('Manos Katrakis', '1908-08-14');
+INSERT INTO stars (name, star_dob) VALUES ('Rutger Hauer', '1944-01-23');
+INSERT INTO stars (name, star_dob) VALUES ('Juliette Binoche', '1964-03-09');
+INSERT INTO stars (name, star_dob) VALUES ('Gerard Depardieu', '1948-12-27');
