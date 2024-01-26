@@ -1,0 +1,2 @@
+-- Get the average score of each genre
+SELECT genre, AVG(score) FROM film GROUP BY genre
