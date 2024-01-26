@@ -1,0 +1,2 @@
+--Show only those films where the writer and the director are the same person
+SELECT film.title FROM (film JOIN directors ON film.director_id = directors.id JOIN writer ON film.writer_id = writer.id) WHERE directors.name = writer.name

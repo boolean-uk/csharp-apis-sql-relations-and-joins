@@ -1,0 +1,2 @@
+-- Show the title and director name for all films
+SELECT film.title, directors.name FROM directors JOIN film ON film.director_id = directors.id 

@@ -1,0 +1,2 @@
+-- Show the  writer and the movie of all movies that came out before 1970
+SELECT writer.name, film.title FROM (film JOIN writer ON film.writer_id = writer.id) WHERE film.year < 1970

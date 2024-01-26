@@ -1,0 +1,2 @@
+--Show the title of films where the director is from the USA
+SELECT film.title FROM directors JOIN film ON film.director_id = directors.id  WHERE directors.country = 'USA'
