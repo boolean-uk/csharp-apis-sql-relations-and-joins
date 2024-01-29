@@ -1,4 +1,1 @@
-SELECT movies.title AS MovieTitle, people.name AS DirectorName
-FROM movies
-JOIN movies_directors ON movies.id = movies_directors.movie_id
-JOIN people ON movies_directors.directors_id = people.id;
+SELECT movies.title, people.name FROM movies_directors JOIN directors ON movies_directors.directors_id = directors.id JOIN people ON directors.people_id = people.id JOIN movies ON movies_directors.movie_id = movies.id
