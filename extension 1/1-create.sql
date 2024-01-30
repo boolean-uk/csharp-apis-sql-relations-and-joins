@@ -41,6 +41,6 @@ CREATE TABLE film (
   film_fk_star INTEGER NOT NULL,
   film_fk_writer INTEGER NOT NULL,
   CONSTRAINT fk_director FOREIGN KEY (film_fk_director) REFERENCES director(director_id),
-  CONSTRAINT fk_star FOREIGN KEY (film_fk_star) REFERENCES star(star_id)
+  CONSTRAINT fk_star FOREIGN KEY (film_fk_star) REFERENCES star(star_id),
   CONSTRAINT fk_writer FOREIGN KEY (film_fk_writer) REFERENCES writer(writer_id)
 );
