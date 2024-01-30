@@ -1,0 +1,87 @@
+-- EXTENSION TASK 1
+
+DROP TABLE people
+CASCADE; -- FAILED had to remove all dependencies.
+
+SELECT * FROM film; --REINSERTED film data
+SELECT * FROM writer;
+SELECT * FROM director;
+SELECT * FROM star;
+
+CREATE TABLE people (
+    person_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    date_of_birth DATE,
+    profession VARCHAR(50)
+);
+
+
+-------------------------------------------------------------------------------------------------------------------------
+-- need to insert from the previous tables
+INSERT INTO people (name, profession)
+SELECT name, 'Director'
+FROM director;
+
+INSERT INTO people (name, date_of_birth, profession)
+SELECT name, date_of_birth, 'Star'
+FROM star;
+
+INSERT INTO people (name, profession)
+SELECT name, 'Writer'
+FROM writer;
+
+----------------------------------------------------------------------------------------------------------------------------
+
+-- ALTERING THE FILM TABLE TO CARRY INT
+ALTER TABLE film
+DROP COLUMN director_id,
+DROP COLUMN star_id,
+DROP COLUMN writer_id;
+
+ALTER TABLE film
+ADD COLUMN director_id INT,
+ADD COLUMN star_id INT,
+ADD COLUMN writer_id INT;
+
+------------------------------------------------------------------------------------------------------------------------------
+
+-- ADDING FOREIGN KEY
+ALTER TABLE film
+ADD CONSTRAINT fk_director FOREIGN KEY (director_id) REFERENCES people(person_id),
+ADD CONSTRAINT fk_star FOREIGN KEY (star_id) REFERENCES people(person_id),
+ADD CONSTRAINT fk_writer FOREIGN KEY (writer_id) REFERENCES people(person_id);
+
+------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE people
+ADD COLUMN country VARCHAR(255),
+ADD COLUMN email VARCHAR(255);
+
+-- country for directors
+UPDATE people
+SET country = d.country
+FROM director d
+WHERE people.profession = 'Director'
+AND people.name = d.name;
+
+SELECT * FROM director;
+
+-- emails for writers
+UPDATE people
+SET email = w.email
+FROM writer w
+WHERE people.profession = 'Writer'
+AND people.name = w.name;
+
+SELECT * FROM writer;
+
+SELECT person_id, name, profession, date_of_birth, email, country
+FROM people
+ORDER BY person_id ASC;
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+SELECT film.title, people.name AS director_name
+FROM film
+JOIN people ON film.director_id = people.person_id
+WHERE people.profession = 'Director'; -- not getting this to work right now, but might come back later, i have interviews.
