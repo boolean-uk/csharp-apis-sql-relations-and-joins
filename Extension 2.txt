@@ -1,0 +1,129 @@
+DROP TABLE IF EXISTS film_cast;
+DROP TABLE IF EXISTS actor;
+DROP TABLE IF EXISTS director;
+DROP TABLE IF EXISTS writer;
+DROP TABLE IF EXISTS film;
+DROP TABLE IF EXISTS person;
+
+CREATE TABLE person (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255)
+);
+
+CREATE TABLE actor (
+    id SERIAL PRIMARY KEY,
+    dob DATE,
+    person_id INT
+);
+
+CREATE TABLE director (
+    id SERIAL PRIMARY KEY,
+    country VARCHAR(255),
+    person_id INT
+);
+
+CREATE TABLE writer (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    person_id INT
+);
+
+CREATE TABLE film (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    release_year INT,
+    genre VARCHAR(255),
+    score INT,
+    director_id INT,
+    star_id INT,
+    writer_id INT
+);
+
+-- Create cast table
+CREATE TABLE film_cast (
+	id SERIAL PRIMARY KEY,
+	film_id INT,
+	actor_id INT
+);
+
+INSERT INTO person (name)
+VALUES
+    ('Stanley Kubrick'),
+    ('George Lucas'),
+    ('Robert Mulligan'),
+    ('James Cameron'),
+    ('David Lean'),
+    ('Anthony Mann'),
+    ('Theodoros Angelopoulos'),
+    ('Paul Verhoeven'),
+    ('Krzysztof Kieslowski'),
+    ('Jean-Paul Rappeneau'),
+    ('Keir Dullea'),
+    ('Mark Hamill'),
+    ('Gregory Peck'),
+    ('Leonardo DiCaprio'),
+    ('Julie Christie'),
+    ('Charlton Heston'),
+    ('Manos Katrakis'),
+    ('Rutger Hauer'),
+    ('Juliette Binoche'),
+    ('Gerard Depardieu'),
+    ('Arthur C Clarke'),
+    ('Harper Lee'),
+    ('Boris Pasternak'),
+    ('Frederick Frank'),
+    ('Erik Hazelhoff Roelfzema'),
+    ('Edmond Rostand');
+    ('Actor One'),
+    ('Actor Two'),
+    ('Actor Three'),
+    ('Actor Four'),
+    ('Actor Five');
+
+INSERT INTO actor (person_id, dob)
+VALUES
+    (11, '1936-05-30'),  -- Keir Dullea
+    (12, '1951-09-25'),  -- Mark Hamill
+    (13, '1916-04-05'),  -- Gregory Peck
+    (14, '1974-11-11'),  -- Leonardo DiCaprio
+    (15, '1940-04-14'),  -- Julie Christie
+    (16, '1923-04-10'),  -- Charlton Heston
+    (17, '1908-08-14'),  -- Manos Katrakis
+    (18, '1944-01-23'),  -- Rutger Hauer
+    (19, '1964-09-03'),  -- Juliette Binoche
+    (20, '1948-12-27'),  -- Gerard Depardieu
+    (27, '1980-01-01'),  -- Actor One
+    (28, '1982-02-02'),  -- Actor Two
+    (29, '1984-03-03'),  -- Actor Three
+    (30, '1986-04-04'),  -- Actor Four
+    (31, '1988-05-05');  -- Actor Five
+
+INSERT INTO film (title, release_year, genre, score, director_id, star_id, writer_id)
+VALUES
+    ('2001: A Space Odyssey', 1968, 'Science Fiction', 10, 1, 1, 1),
+    ('Star Wars: A New Hope', 1977, 'Science Fiction', 7, 2, 2, 2),
+    ('To Kill A Mockingbird', 1962, 'Drama', 10, 3, 3, 3),
+    ('Titanic', 1997, 'Romance', 5, 4, 4, 4),
+    ('Dr Zhivago', 1965, 'Historical', 8, 5, 5, 5),
+    ('El Cid', 1961, 'Historical', 6, 6, 6, 6),
+    ('Voyage to Cythera', 1984, 'Drama', 8, 7, 7, 7),
+    ('Soldier of Orange', 1977, 'Thriller', 8, 8, 8, 8),
+    ('Three Colours: Blue', 1993, 'Drama', 8, 9, 9, 9),
+    ('Cyrano de Bergerac', 1990, 'Historical', 9, 10, 10, 10);
+  
+
+-- Populate cast table  
+
+INSERT INTO film_cast (film_id, actor_id)
+SELECT 
+    id AS film_id, 
+    star_id AS actor_id 
+FROM film;
+
+INSERT INTO film_cast (film_id, actor_id)
+VALUES
+	(1, 27),
+	(2, 28),
+	(3, 29),
+	(4, 30),
+	(5, 31);
