@@ -1,0 +1,217 @@
+DROP TABLE IF EXISTS film_cast;
+DROP TABLE IF EXISTS actor;
+DROP TABLE IF EXISTS director;
+DROP TABLE IF EXISTS writer;
+DROP TABLE IF EXISTS film;
+DROP TABLE IF EXISTS person;
+
+
+CREATE TABLE person (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255)
+);
+
+CREATE TABLE actor (
+    id SERIAL PRIMARY KEY,
+    dob DATE,
+    person_id INT
+);
+
+CREATE TABLE director (
+    id SERIAL PRIMARY KEY,
+    country VARCHAR(255),
+    person_id INT
+);
+
+CREATE TABLE writer (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    person_id INT
+);
+
+CREATE TABLE film (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    release_year INT,
+    genre VARCHAR(255),
+    score INT,
+    director_id INT,
+    star_id INT,
+    writer_id INT
+);
+
+INSERT INTO person (name)
+VALUES
+    ('Stanley Kubrick'),
+    ('George Lucas'),
+    ('Robert Mulligan'),
+    ('James Cameron'),
+    ('David Lean'),
+    ('Anthony Mann'),
+    ('Theodoros Angelopoulos'),
+    ('Paul Verhoeven'),
+    ('Krzysztof Kieslowski'),
+    ('Jean-Paul Rappeneau'),
+    ('Keir Dullea'),
+    ('Mark Hamill'),
+    ('Gregory Peck'),
+    ('Leonardo DiCaprio'),
+    ('Julie Christie'),
+    ('Charlton Heston'),
+    ('Manos Katrakis'),
+    ('Rutger Hauer'),
+    ('Juliette Binoche'),
+    ('Gerard Depardieu'),
+    ('Arthur C Clarke'),
+    ('Harper Lee'),
+    ('Boris Pasternak'),
+    ('Frederick Frank'),
+    ('Erik Hazelhoff Roelfzema'),
+    ('Edmond Rostand');
+
+INSERT INTO director (person_id, country)
+VALUES
+    (1, 'USA'),  -- Stanley Kubrick
+    (2, 'USA'),  -- George Lucas
+    (3, 'USA'),  -- Robert Mulligan
+    (4, 'Canada'),  -- James Cameron
+    (5, 'UK'),  -- David Lean
+    (6, 'USA'),  -- Anthony Mann
+    (7, 'Greece'),  -- Theodoros Angelopoulos
+    (8, 'Netherlands'),  -- Paul Verhoeven
+    (9, 'Poland'),  -- Krzysztof Kieslowski
+    (10, 'France');  -- Jean-Paul Rappeneau
+
+INSERT INTO actor (person_id, dob)
+VALUES
+    (11, '1936-05-30'),  -- Keir Dullea
+    (12, '1951-09-25'),  -- Mark Hamill
+    (13, '1916-04-05'),  -- Gregory Peck
+    (14, '1974-11-11'),  -- Leonardo DiCaprio
+    (15, '1940-04-14'),  -- Julie Christie
+    (16, '1923-04-10'),  -- Charlton Heston
+    (17, '1908-08-14'),  -- Manos Katrakis
+    (18, '1944-01-23'),  -- Rutger Hauer
+    (19, '1964-09-03'),  -- Juliette Binoche
+    (20, '1948-12-27');  -- Gerard Depardieu
+
+INSERT INTO writer (person_id, email)
+VALUES
+    (21, 'arthur@clarke.com'),  -- Arthur C Clarke
+    (2, 'george@email.com'),  -- George Lucas
+    (22, 'harper@lee.com'),  -- Harper Lee
+    (4, 'james@cameron.com'),  -- James Cameron
+    (23, 'boris@boris.com'),  -- Boris Pasternak
+    (24, 'fred@frank.com'),  -- Frederick Frank
+    (7, 'theo@angelopoulos.com'),  -- Theodoros Angelopoulos
+    (25, 'erik@roelfzema.com'),  -- Erik Hazelhoff Roelfzema
+    (9, 'email@email.com'),  -- Krzysztof Kieslowski
+    (26, 'edmond@rostand.com');  -- Edmond Rostand
+
+INSERT INTO film (title, release_year, genre, score, director_id, star_id, writer_id)
+VALUES
+    ('2001: A Space Odyssey', 1968, 'Science Fiction', 10, 1, 1, 1),
+    ('Star Wars: A New Hope', 1977, 'Science Fiction', 7, 2, 2, 2),
+    ('To Kill A Mockingbird', 1962, 'Drama', 10, 3, 3, 3),
+    ('Titanic', 1997, 'Romance', 5, 4, 4, 4),
+    ('Dr Zhivago', 1965, 'Historical', 8, 5, 5, 5),
+    ('El Cid', 1961, 'Historical', 6, 6, 6, 6),
+    ('Voyage to Cythera', 1984, 'Drama', 8, 7, 7, 7),
+    ('Soldier of Orange', 1977, 'Thriller', 8, 8, 8, 8),
+    ('Three Colours: Blue', 1993, 'Drama', 8, 9, 9, 9),
+    ('Cyrano de Bergerac', 1990, 'Historical', 9, 10, 10, 10);
+
+-- Show the title and director name for all films
+SELECT film.title, person.name FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN person ON director.id = person.id;
+
+-- Show the title, director and star name for all films
+SELECT film.title "Film",
+	p_director.name "Director",
+	p_actor.name "Star" 
+FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN actor ON film.star_id = actor.id
+LEFT JOIN person p_director ON director.person_id = p_director.id
+LEFT JOIN person p_actor ON actor.person_id = p_actor.id;
+
+-- Show the title of films where the director is from the USA
+SELECT film.title "Films made by americans" FROM film
+LEFT JOIN director ON film.director_id = director.id
+WHERE director.country = 'USA';
+
+-- Show only those films where the writer and the director are the same person
+SELECT film.title "Writen and directed by the one person" FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN writer ON film.writer_id = writer.id
+WHERE director.person_id = writer.person_id;
+
+-- Show directors and film titles for films with a score of 8 or higher
+SELECT film.title "Film", person.name "Director" FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN person ON director.person_id = person.id
+WHERE film.score >= 8;
+
+-- Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables.
+-- 1: Films Released Before 1980 with Their Director and Star
+SELECT 
+	film.title, 
+	film.release_year, 
+	p_director.name "Director", 
+	p_star.name "Star"
+FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN actor star ON film.star_id = star.id
+LEFT JOIN person p_director ON director.person_id = p_director.id
+LEFT JOIN person p_star ON star.person_id = p_star.id
+WHERE film.release_year < 1980;
+
+-- 2: Film Genres and Their Directors
+SELECT 
+    film.genre, 
+    p_director.name AS "Director"
+FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN person p_director ON director.person_id = p_director.id
+GROUP BY film.genre, p_director.name;
+
+-- 3: Highest Scoring Film for Each Director
+SELECT 
+	p_director.name "Director", 
+	MAX(film.score) "Highest Score", 
+	film.title
+FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN person p_director ON director.person_id = p_director.id
+GROUP BY 
+	p_director.name, 
+	film.title;
+
+-- 4: Average Score of Films for Each Writer
+SELECT 
+	p_writer.name "Writer", 
+	ROUND(AVG(film.score), 1) "Average Score"
+FROM film
+LEFT JOIN writer ON film.writer_id = writer.id
+LEFT JOIN person p_writer ON writer.person_id = p_writer.id
+GROUP BY p_writer.name;
+
+-- 5: Everything
+SELECT 
+	title, 
+	release_year, 
+	genre, 
+	p_director.name "director" , 
+	p_star.name "star" , 
+	p_writer.name "writer", 
+	score 
+FROM film
+LEFT JOIN director ON film.director_id = director.id
+LEFT JOIN person p_director ON director.person_id = p_director.id
+
+LEFT JOIN actor star ON film.star_id = star.id
+LEFT JOIN person p_star ON star.person_id = p_star.id
+
+LEFT JOIN writer ON film.writer_id = writer.id
+LEFT JOIN person p_writer ON writer.person_id = p_writer.id;
