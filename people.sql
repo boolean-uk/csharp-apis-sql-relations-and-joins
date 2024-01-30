@@ -1,20 +1,3 @@
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
--- Sequence and defined type
-CREATE SEQUENCE IF NOT EXISTS people_person_id_seq;
-
--- Table Definition
-CREATE TABLE "public"."people" (
-    "person_id" int4 NOT NULL DEFAULT nextval('people_person_id_seq'::regclass),
-    "role_id" int4,
-    "name" varchar(100),
-    "date_of_birth" date,
-    "email" varchar(255),
-    "country" varchar(255),
-    CONSTRAINT "people_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "public"."rules"("id"),
-    PRIMARY KEY ("person_id")
-);
-
 INSERT INTO "public"."people" ("person_id", "role_id", "name", "date_of_birth", "email", "country") VALUES
 (1, 2, 'Gregory Peck', '1916-04-05', NULL, NULL);
 INSERT INTO "public"."people" ("person_id", "role_id", "name", "date_of_birth", "email", "country") VALUES
