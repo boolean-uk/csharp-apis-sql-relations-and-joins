@@ -11,18 +11,18 @@ VALUES
 ('Krzysztof Kieslowsk', 'email@email.com'),
 ('Edmond Rostand', 'edmond@rostand.com');
 
-INSERT INTO stars(name, date_of_birth)
+INSERT INTO stars(name, birth)
 VALUES
-('Keir Dullea', '30-05-1936'),
-('Mark Hamill', '25-09-1951'),
-('Gregory Peck', '05-04-1916'),
-('Leonardo DiCaprio', '11-11-1974'),
-('Julie Christie', '14-04-1940'),
-('Charlton Heston', '04-10-1923'),
-('Manos Katrakis', '14-08-1908'),
-('Rutger Hauer', '23-01-1944'),
-('Juliette Binoche', '09-03-1964'),
-('Gerard Depardieu', '27-12-1948');
+('Keir Dullea', '1936-05-30'),
+('Mark Hamill', '1951-09-25'),
+('Gregory Peck', '1916-04-05'),
+('Leonardo DiCaprio', '1974-11-11'),
+('Julie Christie', '1940-04-14'),
+('Charlton Heston', '1923-10-04'),
+('Manos Katrakis', '1908-08-14'),
+('Rutger Hauer', '1944-01-23'),
+('Juliette Binoche', '1964-03-09'),
+('Gerard Depardieu', '1948-12-27');
 
 INSERT INTO directors (name, country) 
 VALUES 
@@ -37,7 +37,7 @@ VALUES
 ('Krzystof Kieslowski', 'Poland'),
 ('Jean-Paul Rappeneau', 'France');
 
-INSERT INTO movies(writer_id, star_id, director_id, title, year, genre, score)
+INSERT INTO movies(writer_id, star_id, director_id, title, r_year, genre, score)
 VALUES
 (1, 1, 1, '2001: A Space Odyssey', 1968, 'Science Fiction', 10),
 (2, 2, 2, 'Star Wars: A New Hope', 1977, 'Science Fiction', 7),

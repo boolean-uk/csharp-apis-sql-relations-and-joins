@@ -22,7 +22,7 @@ CREATE TABLE movies(
   star_id int,
   director_id int,
   title varchar(50),
-  year int,
+  r_year int,
   genre varchar(20),
   score int,
   FOREIGN KEY (writer_id) REFERENCES writers(id),
