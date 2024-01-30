@@ -34,6 +34,7 @@ CREATE TABLE movies(
 	FOREIGN KEY (writer_id) REFERENCES writers(id)	
 );
 
+--Insert into stars
 INSERT INTO stars(name, birth)
 VALUES
 ('Keir Dullea', '1936-05-30'),
@@ -47,6 +48,7 @@ VALUES
 ('Juliette Binoche', '1964-03-09'),
 ('Gerard Depardieu', '1948-12-27');
 
+-- Insert into directors
 INSERT INTO directors (name, country) 
 VALUES 
 ('Stanley Kubrick', 'USA'),
@@ -59,19 +61,6 @@ VALUES
 ('Paul Verhoeven', 'Netherlands'),
 ('Krzystof Kieslowski', 'Poland'),
 ('Jean-Paul Rappeneau', 'France');
-
--- Insert into directors
-INSERT INTO directors (name, country) VALUES 
-	('Stanley Kubrick', 'USA'),
-	('George Lucas', 'USA'),
-	('Robert Mulligan', 'USA'),
-	('James Cameron', 'Canada'),
-	('David Lean', 'UK'),
-	('Anthony Mann', 'USA'),
-	('Theodoros Angelopoulos', 'Greece'),
-	('Paul Verhoeven', 'Netherlands'),
-	('Krzystof Kieslowski', 'Poland'),
-	('Jean-Paul Rappeneau', 'France');
 
 -- Insert into writers
 INSERT INTO writers(name, email) VALUES 
