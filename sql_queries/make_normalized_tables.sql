@@ -52,8 +52,8 @@ CREATE TABLE director_movie (
 			REFERENCES director(id)
 );
 
--- Star-movie joining table
-CREATE TABLE star_movie (
+-- writer-movie joining table
+CREATE TABLE writer_movie (
 	movie_id integer NOT NULL,
 	writer_id integer NOT NULL,
 	CONSTRAINT movie_fk 

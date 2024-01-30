@@ -59,7 +59,7 @@ VALUES
 ;
 
 -- writer-movie 
-INSERT INTO writer_movie(id, id)
+INSERT INTO writer_movie(movie_id, writer_id)
 VALUES 
 	(1,1),
 	(2,2),
@@ -74,7 +74,7 @@ VALUES
 ;
 
 -- star-movie
-INSERT INTO star_movie(id, id)
+INSERT INTO star_movie(movie_id, star_id)
 VALUES 
 	(1,1),
 	(2,2),
@@ -89,7 +89,7 @@ VALUES
 ;
 
 -- director-movie
-INSERT INTO director_movie(id, id)
+INSERT INTO director_movie(movie_id, director_id)
 VALUES 
 	(1,1),
 	(2,2),
