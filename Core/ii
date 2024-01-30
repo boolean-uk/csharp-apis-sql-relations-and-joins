@@ -1,0 +1,12 @@
+SELECT * From films 
+Inner join director on director_fk_id = director.id
+inner join star on star_fk_id = star.id
+inner join writer on writer_fk_id = writer.id;
+
+SELECT * From films 
+Inner join director on director_fk_id = director.id
+inner join star on star_fk_id = star.id;
+
+Select title, director_name, star_name FROM films 
+Inner join director on director_fk_id = director.id
+inner join star on star_fk_id = star.id;

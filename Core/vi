@@ -1,0 +1,19 @@
+SELECT title, score, star_name, writer_name FROM films
+inner join star on star_fk_id = star.id
+inner join writer on writer_fk_id = writer.id
+where score <= 7;
+
+select AVG(score), director_country FROM films
+inner join director on director_fk_id = director.id
+group by director_country;
+
+select *  FROM films
+inner join star on star_fk_id = star.id
+where star_dob > '01-01-1940';
+
+select * from films 
+inner join star on star_fk_id = star.id
+inner join writer on writer_fk_id = writer.id;
+
+select star_fk_id from films 
+left join star on star_fk_id = star.id;
