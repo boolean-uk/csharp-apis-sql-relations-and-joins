@@ -1,0 +1,212 @@
+CREATE TABLE people(
+   id serial PRIMARY KEY NOT NULL,
+   name varchar(255) NOT NULL
+);
+
+INSERT INTO people(name)
+VALUES
+('Stanley Kubrick'), --1
+('George Lucas'), --2
+('Robert Mulligan'), --3
+('James Cemeron'), --4
+('David Lean'), --5
+('Antohny Mann'), --6
+('Theodoros Angelopoulos'), --7
+('Paul Verhoeven'), --8
+('Krzysztof Kieslowski'), --9
+('Jean-Paul Rappeneau'), --10
+('Arthur C Clarke'), --11
+('Herper Lee'), --12
+('Boris Pasternak'), --13
+('Frederick Frank'), --14
+('Erik Hazelhoff Roelfzema'), --15
+('Edmond Rostand'), --16
+('Keir Dullea'), --17
+('Mark Hamill'), --18
+('Gregory Peck'), --19
+('Leonardo DiCaprio'), --20
+('Julie Christie'), --21
+('Charlton Heston'), --22
+('Manos Katrakis'), --23
+('Rutger Hauer'), --24
+('Manos Katrakis'), --25
+('Gerard Depardieu'); --26
+
+CREATE TABLE directors(
+   id serial PRIMARY KEY NOT NULL,
+   fk_person integer NOT NULL,
+   country varchar(255) NOT NULL,
+   FOREIGN KEY (fk_person) references people(id)
+);
+
+INSERT INTO directors(fk_person, country)
+VALUES
+(1, 'USA'),
+(2, 'USA'),
+(3, 'USA'),
+(4, 'Canada'),
+(5, 'UK'),
+(6, 'USA'),
+(7, 'Greece'),
+(8, 'Greece'),
+(9, 'Poland'),
+(10, 'France');
+
+CREATE TABLE writers(
+   id serial PRIMARY KEY NOT NULL,
+   fk_person integer NOT NULL,
+   email varchar(255) NOT NULL,
+   FOREIGN KEY (fk_person) references people(id)
+);
+
+INSERT INTO writers(fk_person, email)
+VALUES
+(11, 'arthur@clarke.com'),
+(2, 'george@email.com'),
+(12, 'harper@lee.com'),
+(4, 'james@cameron.com'),
+(13, 'boris@boris.com'),
+(14, 'fred@frank.com'),
+(7, 'theo@angelopoulos.com'),
+(15, 'erik@roelfzema.com'),
+(9, 'email@email.com'),
+(16, 'edmond@rostand.com');
+
+CREATE TABLE stars(
+   id serial PRIMARY KEY NOT NULL,
+   fk_person integer NOT NULL,
+   dob DATE NOT NULL,
+   FOREIGN KEY (fk_person) references people(id)
+);
+
+INSERT INTO stars(fk_person, dob)
+VALUES
+(17, to_date('1936-05-30', 'yyyy-mm-dd')),
+(18, to_date('1951-09-25', 'yyyy-mm-dd')),
+(19, to_date('1916-04-05', 'yyyy-mm-dd')),
+(20, to_date('1974-11-11', 'yyyy-mm-dd')),
+(21, to_date('1940-04-14', 'yyyy-mm-dd')),
+(22, to_date('1923-10-04', 'yyyy-mm-dd')),
+(23, to_date('1908-08-14', 'yyyy-mm-dd')),
+(24, to_date('1944-01-23', 'yyyy-mm-dd')),
+(25, to_date('1964-03-09', 'yyyy-mm-dd')),
+(26, to_date('1948-12-27', 'yyyy-mm-dd'));
+
+
+
+CREATE TABLE films(
+   id serial PRIMARY KEY NOT NULL,
+   title varchar(255) NOT NULL,
+   release_year char(4) NOT NULL,
+   genre varchar(255) NOT NULL,
+   score integer NOT NULL,
+   fk_writer integer NOT NULL,
+   fk_director integer NOT NULL,
+   fk_star integer NOT NULL,
+   FOREIGN KEY(fk_writer) REFERENCES writers(id),
+   FOREIGN KEY(fk_director) REFERENCES directors(id),
+   FOREIGN KEY(fk_star) REFERENCES stars(id)
+);
+
+INSERT INTO films (title, release_year, genre, score, fk_writer, fk_director, fk_star)
+VALUES
+('2001: A Space Odyssey', 1968, 'Science Fiction', 10, 1, 1, 1),
+('Star Wars: A New Hope', 1977, 'Science Fiction', 7, 2, 2, 2),
+('To Kill A Mockingbird', 1962, 'Drama', 10, 3, 3, 3),
+('Titanic', 1997, 'Romance', 5, 4, 4, 4),
+('Dr Zhivago', 1965, 'Historical', 8, 5, 5, 5),
+('El Cid', 1961, 'Historical', 6, 6, 6, 6),
+('Voyage to Cythera', 1984, 'Drama', 8, 7, 7, 7),
+('Soldier of Orange', 1977, 'Thriller', 8, 8, 8, 8),
+('Three Colours: Blue', 1993, 'Drama', 8, 9, 9, 9),
+('Cyrano de Bergerac', 1990, 'Historical', 9, 10, 10, 10);
+
+--i Show the title and director name for all films
+SELECT films.title, people.name
+FROM films
+INNER JOIN directors
+ON (films.fk_director = directors.id) 
+INNER JOIN people 
+ON (directors.fk_person = people.id);
+
+--TODO
+--ii Show the title, director and star name for all films
+SELECT films.title, director_people.name AS director_name, star_people.name as star_name
+FROM films
+INNER JOIN directors
+ON (films.fk_director = directors.id)
+INNER JOIN stars
+ON(films.fk_star = stars.id)
+INNER JOIN people AS director_people ON (directors.fk_person = director_people.id) 
+INNER JOIN people AS star_people ON (stars.fk_person = star_people.id);
+
+--iii Show the title of films where the director is from the USA
+SELECT films.title, people.name, directors.country
+FROM films
+INNER JOIN directors
+ON (films.fk_director = directors.id) AND (directors.country = 'USA')
+INNER JOIN people 
+ON (directors.fk_person = people.id);
+
+--iv Show only those films where the writer and the director are the same person
+SELECT films.title, people.name
+FROM films
+INNER JOIN directors
+ON (films.fk_director = directors.id)
+INNER JOIN writers 
+ON (films.fk_writer = writers.id)
+INNER JOIN people
+ON (directors.fk_person = people.id) AND (writers.fk_person = people.id);
+
+
+--v Show directors and film titles for films with a score of 8 or higher
+SELECT films.title, people.name, films.score
+FROM films
+INNER JOIN directors
+ON (films.fk_director = directors.id) AND (films.score >= 8) 
+INNER JOIN people 
+ON (directors.fk_person = people.id);
+
+-- vi Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables
+SELECT films.title, people.name 
+FROM films 
+INNER JOIN writers
+ON(films.fk_writer = writers.id)
+INNER JOIN people
+ON (writers.fk_person = people.id);
+
+
+SELECT films.title, people.name
+FROM films 
+INNER JOIN directors
+On(films.fk_director = directors.id) 
+INNER JOIN people
+ON(directors.fk_person = people.id) AND (people.name LIKE '%Jean%');
+
+SELECT films.title, people_directors.name as people_directors, people_writers.name as people_writers, people_stars.name as people_stars
+FROM films
+INNER JOIN directors
+ON (films.fk_director = directors.id)
+INNER JOIN writers
+ON (films.fk_writer = writers.id)
+INNER JOIN stars
+ON (films.fk_star = stars.id)
+INNER JOIN people as people_directors ON (directors.fk_person = people_directors.id)
+INNER JOIN people as people_writers ON (writers.fk_person = people_writers.id)
+INNER JOIN people as people_stars ON (stars.fk_person = people_stars.id);
+
+
+SELECT films.title, people.name, directors.country, films.score
+FROM films
+INNER JOIN directors 
+ON (films.fk_director = directors.id) AND (directors.country = 'USA') AND (films.score <= 7)
+INNER JOIN people
+ON (directors.fk_person = people.id);
+
+
+SELECT films.title, people.name, films.genre
+FROM films
+INNER JOIN stars
+ON (films.fk_star = stars.id) AND (films.genre = 'Drama')
+INNER JOIN people
+ON (stars.fk_person = people.id);
