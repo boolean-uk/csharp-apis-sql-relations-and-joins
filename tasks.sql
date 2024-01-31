@@ -179,7 +179,7 @@ INSERT INTO films_person (title, director_id, writer_id, star_id, year, score, g
         JOIN people star on stars.name = star.name
         JOIN people director on directors.name = director.name
 
--- As it follows the same structure as previous, the previous code should run
+-- As it follows the same structure as previous, the previous code should run, note that directors, writers and stars needs to be changed to people
 
 CREATE TABLE cast(
     id serial primary key, 
