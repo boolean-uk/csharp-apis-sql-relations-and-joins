@@ -1,0 +1,3 @@
+SELECT title, director_country From films 
+inner join director on director_fk_id = director.id
+where director_country iLike 'usa';
