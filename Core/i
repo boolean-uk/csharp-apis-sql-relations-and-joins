@@ -89,4 +89,4 @@ INSERT INTO films (title, director_fk_id, writer_fk_id, star_fk_id, release_year
   
 
 SELECT * From films 
-INNER join director on director_fk_id = director.id;
+left join director on director_fk_id = director.id;

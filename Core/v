@@ -1,0 +1,3 @@
+SELECT title, score, director.director_name FROM films
+inner join director on director_fk_id = director.id
+where score >= 8;
