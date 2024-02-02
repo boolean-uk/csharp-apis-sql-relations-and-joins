@@ -16,7 +16,7 @@ the repository as a planning document. This could be a physical ERD diagram of t
 | Year            |           | DirectorCountry  |
 | Genre           |           +------------------+
 | Score           |
-| DirectorID (FK) |<---------+
+| DirectorID (FK) |
 | StarID (FK)     |
 | WriterID (FK)   |
 +------------------+
@@ -42,6 +42,7 @@ the repository as a planning document. This could be a physical ERD diagram of t
 You are going to create some tables to match the schema
 Then populate the tables with the data shown*/
 
+/*Updated the existing Film table to use PeopleID as foreign keys instead of having separate foreign keys for actors, directors, and writers.*/
 CREATE TABLE Film (
     FilmID SERIAL PRIMARY KEY,
     Title VARCHAR(255),
@@ -152,7 +153,7 @@ FROM Film
 JOIN Directors ON Film.DirectorID = Directors.DirectorID;
 
 
---ii) Show the title, director and star name for all films
+--ii) Show the title, director and star name for all filmsp
 SELECT Film.Title, Directors.DirectorName, Star.StarName
 FROM Film
 JOIN Directors ON Film.DirectorID = Directors.DirectorID
