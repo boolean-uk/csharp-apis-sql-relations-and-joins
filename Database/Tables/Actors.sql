@@ -1,0 +1,4 @@
+CREATE TABLE actors(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(40) NOT NULL
+);

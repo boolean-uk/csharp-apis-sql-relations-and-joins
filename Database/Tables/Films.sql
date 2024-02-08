@@ -6,5 +6,6 @@ CREATE TABLE films(
     score INT NOT NULL,
     director_id INT REFERENCES directors(id),
     star_id INT REFERENCES stars(id),
-    writer_id INT REFERENCES writers(id)
+    writer_id INT REFERENCES writers(id),
+    actor_id INT REFERENCES actors(id)
 );
