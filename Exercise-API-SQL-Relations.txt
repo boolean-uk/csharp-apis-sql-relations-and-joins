@@ -1,0 +1,138 @@
+CORE:
+Table Creation:
+-- -----------------------------------------------------
+-- Table `mydb`.`director`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Director (
+  iddirector serial primary key,
+  directorCountry VARCHAR(45) NOT NULL,
+  directorName VARCHAR(45) NOT NULL);
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Star`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Star (
+  idStar serial primary key,
+  StarName VARCHAR(45) NOT NULL,
+  DOB DATE NOT NULL);
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Writer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Writer (
+  idWriter serial primary key,
+  WriterName VARCHAR(45) NOT NULL,
+  WriterEmail VARCHAR(45) NOT NULL);
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Genre`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Genre (
+  idGenre serial primary key,
+  GenreName VARCHAR(45) NOT NULL);
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Movie`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Movie (
+  idMovie serial primary key,
+  Title VARCHAR(45) NOT NULL,
+  Score INT NOT NULL,
+  ReleaseYear INT NOT NULL,
+  director_iddirector INT NOT NULL,
+  Star_idStar INT NOT NULL,
+  Writer_idWriter INT NOT NULL,
+  Genre_idGenre INT NOT NULL,
+  CONSTRAINT fk_Movie_director
+    FOREIGN KEY (director_iddirector)
+    REFERENCES director (iddirector),
+  CONSTRAINT fk_Movie_Star1
+    FOREIGN KEY (Star_idStar)
+    REFERENCES Star (idStar),
+  CONSTRAINT fk_Movie_Writer1
+    FOREIGN KEY (Writer_idWriter)
+    REFERENCES Writer (idWriter),
+  CONSTRAINT fk_Movie_Genre1
+    FOREIGN KEY (Genre_idGenre)
+    REFERENCES Genre (idGenre));
+
+Populating Tables:
+
+INSERT INTO director (directorname, directorcountry) VALUES
+    ('Stanley Kubrick', 'USA'),
+    ('George Lucas', 'USA'),
+    ('Robert Mulligan', 'USA'),
+    ('James Cameron', 'Canada'),
+    ('David Lean', 'UK'),
+    ('Anthony Mann', 'USA'),
+    ('Theodoros Angelopoulos', 'Greece'),
+    ('Paul Verhoeven', 'Netherlands'),
+    ('Krzysztof Kieslowski', 'Poland'),
+    ('Jean-Paul Rappeneau', 'France');
+
+INSERT INTO star (starname, DOB) VALUES
+    ('Keir Dullea', '1936-05-30'),
+    ('Mark Hamill', '1951-09-25'),
+    ('Gregory Peck', '1916-04-05'),
+    ('Leonardo DiCaprio', '1974-11-11'),
+    ('Julie Christie', '1940-04-14'),
+    ('Charlton Heston', '1923-10-04'),
+    ('Manos Katrakis', '1908-08-14'),
+    ('Rutger Hauer', '1944-01-23'),
+    ('Juliette Binoche', '1964-03-09'),
+    ('Gerard Depardieu', '1948-12-27');
+
+INSERT INTO writer (writername, writeremail) VALUES
+    ('Arthur C Clarke', 'arthur@clarke.com'),
+    ('George Lucas', 'george@email.com'),
+    ('Harper Lee', 'harper@lee.com'),
+    ('James Cameron', 'james@cameron.com'),
+    ('Boris Pasternak', 'boris@boris.com'),
+    ('Frederick Frank', 'fred@frank.com'),
+    ('Theodoros Angelopoulos', 'theo@angelopoulos.com'),
+    ('Erik Hazelhoff Roelfzema', 'erik@roelfzema.com'),
+    ('Krzysztof Kieslowsk', 'email@email.com'),
+    ('Edmond Rostand', 'edmond@rostand.com');
+
+INSERT INTO genre (genrename) VALUES
+    ('Science Fiction'),
+    ('Drama'),
+    ('Romance'),
+    ('Historical'),
+    ('Thriller');
+
+INSERT INTO movie (title, releaseyear, genre_idgenre, score, director_iddirector, star_idstar, writer_idwriter) VALUES
+    ('2001: A Space Odyssey', 1968, 1, 10, 1, 1, 1),
+    ('Star Wars: A New Hope', 1977, 1, 7, 2, 2, 2),
+    ('To Kill A Mockingbird', 1962, 2, 10, 3, 3, 3),
+    ('Titanic', 1997, 3, 5, 4, 4, 4),
+    ('Dr Zhivago', 1965, 4, 8, 5, 5, 5),
+    ('El Cid', 1961, 4, 6, 6, 6, 6),
+    ('Voyage to Cythera', 1984, 2, 8, 7, 7, 7),
+    ('Soldier of Orange', 1977, 5, 8, 8, 8, 8),
+    ('Three Colours: Blue', 1993, 2, 8, 9, 9, 9),
+    ('Cyrano de Bergerac', 1990, 5, 9, 10, 10, 10);
+
+
+Queries:
+
+i) select title, directorName from movie left join director on director_iddirector = iddirector;
+
+ii) select title, directorName, starname from movie left join director on director_iddirector = iddirector left join star on star_idstar = idstar;
+
+iii) select title, directorcountry from movie left join director on director_iddirector = iddirector where directorcountry = 'USA';
+
+iv) select title, directorname, writername from movie left join director on director_iddirector = iddirector left join writer on writer_idwriter = idwriter where writername = directorname;
+
+v) select directorname, title, score from movie left join director on director_iddirector = iddirector where score >= 8;
+
+vi) 
+1) select title, genrename from movie left join genre on genre_idgenre = idgenre;
+2) select directorname, starname from director right join movie on iddirector = director_iddirector left join star on star_idstar = idstar;
+3) select title, releaseyear, genrename from movie left join genre on genre_idgenre = idgenre order by releaseyear desc;
+4) select directorname, directorcountry, title from director right join movie on iddirector = director_iddirector where directorcountry = 'UK';
+5) select writername, starname from writer right join movie on idwriter = writer_idwriter left join star on star_idstar = idstar;
+6) select title, genrename, starname, directorname, writername, releaseyear from movie left join genre on genre_idgenre = idgenre left join star on star_idstar = idstar left join director on director_iddirector = iddirector left join writer on writer_idwriter = idwriter;
