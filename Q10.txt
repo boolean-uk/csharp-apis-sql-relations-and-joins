@@ -1,0 +1,13 @@
+-- VI. 5 more queries
+
+-- Q5. EVERYTHING
+SELECT Film.id, Film.title, Director.name AS "director", Country.name AS "director country", Actor.name AS "actor", Actor.date_of_birth AS "actor DOB", Writer.name AS "writer", Writer.email AS "writer email", Film.year, Genre.name AS "genre", Film.score
+FROM Film
+INNER JOIN Film_Director ON Film_Director.film_id = Film.id
+INNER JOIN Person Director ON Director.id = Film_Director.director_id
+INNER JOIN Film_Writer ON Film_Writer.film_id = Film.id
+INNER JOIN Person Writer ON Writer.id = Film_Writer.writer_id
+INNER JOIN Film_Actor ON Film_Actor.film_id = Film.id
+INNER JOIN Person Actor ON Actor.id = Film_Actor.actor_id
+INNER JOIN Country ON Country.id = Director.country_id
+INNER JOIN Genre ON Genre.id = Film.genre_id;

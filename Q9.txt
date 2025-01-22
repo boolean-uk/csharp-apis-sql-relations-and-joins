@@ -1,0 +1,9 @@
+-- VI. 5 more queries
+
+-- Q4. Stars sorted by when their respective movies were released
+SELECT Star.name AS "actor", year
+FROM Film
+INNER JOIN Film_Actor ON Film_Actor.film_id = Film.id
+INNER JOIN Person Star ON Star.id = Film_Actor.actor_id
+WHERE Film_Actor.is_star = TRUE
+ORDER BY YEAR;

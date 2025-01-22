@@ -1,0 +1,7 @@
+-- III. Title of films where director from USA
+SELECT title
+FROM Film
+INNER JOIN Film_Director ON Film_Director.film_id = Film.id
+INNER JOIN Person Director ON Director.id = Film_Director.director_id
+INNER JOIN Country ON Country.id = Director.country_id
+WHERE Country.name = 'USA';

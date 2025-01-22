@@ -1,0 +1,9 @@
+-- VI. 5 more queries
+
+-- Q1. Director who's written historical films
+SELECT Person.name AS "Historical director", Genre.name
+FROM Person
+INNER JOIN Film_Director ON Film_Director.director_id = id
+INNER JOIN Film ON Film.id = Film_Director.film_id
+INNER JOIN Genre ON Genre.id = Film.genre_id
+WHERE Genre.name = 'Historical';

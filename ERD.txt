@@ -1,0 +1,56 @@
+@startuml
+
+entity Country {
+id SERIAL PK
+{field} name VARCHAR(120)
+}
+
+entity Film {
+id SERIAL PK
+{field} title VARCHAR(120)
+year SMALLINT
+genre_id INT FK
+score TINYINT
+}
+
+entity Film_Director {
+film_id INT PK FK
+director_id INT PK FK
+}
+
+entity Film_Actor {
+film_id INT PK FK
+actor_id INT PK FK
+is_star BOOLEAN
+}
+
+entity Film_Writer {
+film_id INT PK FK
+writer_id INT PK FK
+}
+
+entity Genre {
+id SERIAL PK
+{field} name VARCHAR(40)
+}
+
+entity Person {
+id SERIAL PK
+{field} name VARCHAR(120)
+country_id INT FK
+date_of_birth DATE
+{field} email VARCHAR(320)
+}
+
+
+Film ||-|{ Film_Director
+Film_Director |o-|| Person
+Film_Actor }|--|| Film
+Film_Actor |o--|| Person
+Film ||--|{ Film_Writer
+Person ||--o| Film_Writer
+Genre ||-o{ Film
+Person }o-|| Country
+
+
+@enduml

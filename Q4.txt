@@ -1,0 +1,8 @@
+-- IV. Films where writer and director are the same person
+SELECT title
+FROM Film
+INNER JOIN Film_Director ON Film_Director.film_id = Film.id
+INNER JOIN Person Director ON Director.id = Film_Director.director_id
+INNER JOIN Film_Writer ON Film_Writer.film_id = Film.id
+INNER JOIN Person Writer ON Writer.id = Film_Writer.writer_id
+WHERE Director.id = Writer.id;

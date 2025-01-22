@@ -1,0 +1,8 @@
+-- II. Title, director and star name
+SELECT title AS "Title", Director.name AS "Director", Star.name AS "Star"
+FROM Film
+INNER JOIN Film_Director ON Film_Director.film_id = Film.id
+INNER JOIN Person Director ON Director.id = Film_Director.director_id
+INNER JOIN Film_Actor ON Film_Actor.film_id = Film.id
+INNER JOIN Person Star ON Star.id = Film_Actor.actor_id
+WHERE Film_Actor.is_star = TRUE;

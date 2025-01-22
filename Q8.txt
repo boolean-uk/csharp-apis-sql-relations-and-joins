@@ -1,0 +1,8 @@
+-- VI. 5 more queries
+
+-- Q3. Films released before Leonardo DiCaprio was born
+SELECT DISTINCT title, year
+FROM Film
+INNER JOIN Film_Actor ON Film_Actor.film_id = Film.id
+INNER JOIN Person Actor ON Actor.id = Film_Actor.actor_id
+WHERE Film.year < (SELECT extract( YEAR FROM (SELECT date_of_birth FROM Person WHERE name = 'Leonardo DiCaprio'))::int);

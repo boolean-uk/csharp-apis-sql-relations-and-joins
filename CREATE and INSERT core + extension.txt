@@ -1,0 +1,225 @@
+CREATE TABLE Country (
+id SERIAL,
+name VARCHAR(120),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Genre (
+id SERIAL,
+name VARCHAR(40),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Person (
+id SERIAL,
+name VARCHAR(120),
+country_id INT,
+date_of_birth DATE,
+email VARCHAR(320),
+PRIMARY KEY (id),
+FOREIGN KEY(country_id) REFERENCES Country(id)
+);
+
+CREATE TABLE Film (
+id SERIAL,
+title VARCHAR(120),
+year SMALLINT,
+genre_id INT,
+score SMALLINT,
+PRIMARY KEY(id),
+FOREIGN KEY(genre_id) REFERENCES Genre(id)
+);
+
+CREATE TABLE Film_Actor (
+film_id INT,
+actor_id INT,
+is_star BOOLEAN NOT NULL,
+PRIMARY KEY(film_id, actor_id),
+FOREIGN KEY(film_id) REFERENCES Film(id),
+FOREIGN KEY(actor_id) REFERENCES Person(id)
+);
+
+CREATE TABLE Film_Director (
+film_id INT,
+director_id INT,
+PRIMARY KEY(film_id, director_id),
+FOREIGN KEY(film_id) REFERENCES Film(id),
+FOREIGN KEY(director_id) REFERENCES Person(id)
+);
+
+CREATE TABLE Film_Writer (
+film_id INT,
+writer_id INT,
+PRIMARY KEY(film_id, writer_id),
+FOREIGN KEY(film_id) REFERENCES Film(id),
+FOREIGN KEY(writer_id) REFERENCES Person(id)
+);
+
+INSERT INTO Country (name)
+VALUES
+('USA'),
+('Canada'),
+('UK'),
+('Greece'),
+('Netherlands'),
+('Poland'),
+('France');
+
+INSERT INTO Genre (name)
+VALUES
+('Science Fiction'),
+('Drama'),
+('Romance'),
+('Historical'),
+('Thriller');
+
+
+
+INSERT INTO Country (name)
+VALUES
+('USA'),
+('Canada'),
+('UK'),
+('Greece'),
+('Netherlands'),
+('Poland'),
+('France');
+
+INSERT INTO Genre (name)
+VALUES
+('Science Fiction'),
+('Drama'),
+('Romance'),
+('Historical'),
+('Thriller');
+
+INSERT INTO Film (title, year, genre_id, score)
+VALUES
+('2001: A Space Odyssey', 1968, 1, 10),
+('Star Wars: A New Hope', 1977, 1, 7),
+('To Kill A Mockingbird', 1962, 2, 10),
+('Titanic', 1997, 3, 5),
+('Dr Zhivago', 1965, 4, 8),
+('El Cid', 1961, 4, 6),
+('Voyage to Cythera', 1984, 2, 8),
+('Soldier of orange', 1977, 5, 8),
+('Three Colours: Blue', 1993, 2, 8),
+('Cyrano de Bergerac', 1990, 4, 9);
+
+INSERT INTO Person (name, country_id, date_of_birth, email)
+VALUES
+('Stanley Kubrick', 1, NULL, NULL),
+('George Lucas', 1, NULL, NULL),
+('Robert Mulligan', 1, NULL, NULL),
+('James Cameron', 2, NULL, 'james@cameron.com'),
+('David Lean', 3, NULL, NULL),
+('Anthony Mann', 1, NULL, NULL),
+('Theodoros Angelopoulos', 4, NULL, NULL),
+('Paul Verhoeven', 5, NULL, NULL),
+('Krzystof Kieslowski', 6, NULL, NULL),
+('Jean-Paul Rappeneau', 7, NULL, NULL),
+('Keir Dullea', NULL, '1936-05-30', NULL),
+('Mark Hamill', NULL, '1951-09-25', NULL),
+('Gregory Peck', NULL, '1916-04-05', NULL),
+('Leonardo DiCaprio', NULL, '1974-11-11', NULL),
+('Julie Christie', NULL, '1940-04-14', NULL),
+('Charlton Heston', NULL, '1923-10-04', NULL),
+('Manos Katrakis', NULL, '1908-08-14', NULL),
+('Rutger Hauger', NULL, '1944-01-23', NULL),
+('Juliette Binoche', NULL, '1964-03-09', NULL),
+('Gerard Depardieu', NULL, '1948-12-27', NULL),
+('Artur C Clarke', NULL, NULL, 'arthur@clarke.com'),
+('George Lucas', NULL, NULL, 'george@email.com'),
+('Harper Lee', NULL, NULL, 'harper@lee.com'),
+('Boris Pasternak', NULL, NULL, 'boris@boris.com'),
+('Frederick Frank', NULL, NULL, 'fred@frank.com'),
+('Theodoros Angelopoulos', NULL, NULL, 'theo@angelopoulos.com'),
+('Erik Hazelhoff Roelfzema', NULL, NULL, 'erik@roelfzema.com'),
+('Krzysztof Kieslowski', NULL, NULL, 'email@email.com'),
+('Edmond Rostand', NULL, NULL, 'edmond@rostand.com');
+
+INSERT INTO Film_Director (film_id, director_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+INSERT INTO Film_Actor (film_id, actor_id, is_star)
+VALUES
+(1, 11, TRUE),
+(2, 12, TRUE),
+(3, 13, TRUE),
+(4, 14, TRUE),
+(5, 15, TRUE),
+(6, 16, TRUE),
+(7, 17, TRUE),
+(8, 18, TRUE),
+(9, 19, TRUE),
+(10, 20, TRUE);
+
+INSERT INTO Film_Writer (film_id, writer_id)
+VALUES
+(1, 21),
+(2, 22),
+(3, 23),
+(4, 4),
+(5, 24),
+(6, 25),
+(7, 26),
+(8, 27),
+(9, 28),
+(10, 29);
+
+
+
+-- Extension
+--Additional INSERTs
+
+INSERT INTO Person (name, country_id, date_of_birth, email)
+VALUES
+('Alec Guinness', 1, '1914-04-02', NULL),
+('Carrie Fisher', 1, '1956-10-21', NULL),
+('Mary Badham', 1, '1952-10-07', NULL),
+('Kate Winslet', 2, '1975-10-05', NULL),
+('Rod Steiger', 3, '1925-04-14', NULL),
+('Maximilian Schell', 1, '1930-12-08', NULL),
+('Yannis Fertis', 4, '1942-02-23', NULL),
+('Sylvester Stallone', 1, '1946-07-06', NULL),
+('Terry Gilliam', 1, '1940-11-22', NULL),
+('John Malkovich', 1, '1953-12-09', NULL),
+('Bert Lancaster', 1, '1913-08-02', NULL),
+('Catherine Deneuve', 7, '1943-10-22', NULL),
+('Nicole Kidman', 1, '1967-06-20', NULL),
+('Vanessa Redgrave', 1, '1937-01-30', NULL),
+('Jeremy Irons', 1, '1948-09-19', NULL),
+('Audrey Hepburn', 1, '1929-05-04', NULL),
+('Keira Knightley', 1, '1985-03-26', NULL),
+('Tommy Lee Jones', 1, '1946-09-15', NULL),
+('Hugh Grant', 1, '1960-09-09', NULL);
+
+INSERT INTO Film_Actor (film_id, actor_id, is_star)
+VALUES
+(2, 30, FALSE),
+(2, 31, FALSE),
+(3, 32, FALSE),
+(4, 33, FALSE),
+(5, 34, FALSE),
+(6, 35, FALSE),
+(7, 36, FALSE),
+(8, 37, FALSE),
+(9, 38, FALSE),
+(10, 39, FALSE),
+(1, 40, FALSE),
+(2, 41, FALSE),
+(3, 42, FALSE),
+(4, 43, FALSE),
+(5, 44, FALSE),
+(6, 45, FALSE),
+(7, 46, FALSE);

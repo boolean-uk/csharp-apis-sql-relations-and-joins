@@ -1,0 +1,5 @@
+-- I. Title and director name
+SELECT title AS "Title", Person.name AS "Director"
+FROM Film
+INNER JOIN Film_Director ON Film_Director.film_id = Film.id
+INNER JOIN Person ON Person.id = Film_Director.director_id;
