@@ -1,0 +1,95 @@
+Original_Unnormalized_Table
+	int ID PK
+	string Title 
+	string Director
+	string Director_country
+	string Star
+	Date Star_DOB
+	string writer
+	string Writer_email
+	int year
+	string Genre
+	int Score 
+
+
+Persons
+	int ID PK
+	string Name
+
+
+DateOfBirths
+	int ID PK
+	Date dateOfBith
+	int PersonsID FK "unique"
+
+HomeCountries
+	int ID PK
+	int PersonsID FK "unique"
+	int CountriesID FK
+
+Countries 
+	int ID PK
+	string name "unique"
+
+Genres
+	int ID PK
+	string name "unique"
+	
+Emails
+	int ID PK
+	string Title 
+	int PersonID FK "unique"
+
+Movies
+	int ID PK
+	string Title 
+	int Year
+	int score "range 0 to 10"
+	int DirectorID FK
+	int WriterID FK
+	int MovieStarID FK
+
+Movie_Genre
+	int ID PK
+	int MoviesID FK
+	int GenresID FK
+
+
+MovieStar
+	int ID PK
+	int PersonID FK
+
+MovieDirector
+	int ID PK
+	int PersonID FK
+
+MovieWriter
+	int ID PK
+	int PersonID FK
+
+Cast
+	int ID PK
+	int MoviesID FK
+	int PersonID FK
+
+Persons{1}--registered--{01}DateOfBirths
+Persons{1}--registered--{01}HomeCountries
+Countries{1}--registered--{0..n}HomeCountries
+
+Movies{1}--registered--{1..n}Movie_Genre
+Movie_Genre{1..n}--is--{1}Genres
+
+Persons{1}--registrered--{01}Emails
+
+
+MovieStar{1}--starIn--{1}Movies
+MovieStar{01}--isA--{1}Persons
+
+MovieDirector{1}--directed--{1}Movies
+MovieDirector{01}--isA--{1}Persons
+
+MovieWriter{1}--wrote--{1}Movies
+MovieWriter{01}--isA--{1}Persons
+
+Cast{0..n}--wrote--{1}Movies
+Cast{0..n}--isA--{1}Persons
