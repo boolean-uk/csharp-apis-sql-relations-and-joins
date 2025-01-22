@@ -1,0 +1,95 @@
+1. Refactor the database tables so that the Actors,
+Directors and Writers all identify people (using a Foreign Key)
+that are present in a single People table
+
+CREATE TABLE films (
+  id SERIAL PRIMARY KEY,
+  title TEXT,
+  director_id INT,
+  star_id INT,
+  writer_id INT,
+  year INT,
+  genre TEXT,
+  score INT,
+  UNIQUE(title),
+  CONSTRAINT fk_director
+  	FOREIGN KEY(director_id)
+  		REFERENCES peoples(id),
+  CONSTRAINT fk_star
+  	FOREIGN KEY(star_id)
+  		REFERENCES peoples(id),
+  CONSTRAINT fk_writer
+  	FOREIGN KEY(writer_id)
+  		REFERENCES peoples(id)
+  );
+
+  CREATE TABLE peoples(
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    country TEXT,
+    email TEXT,
+    dob TEXT
+    );
+
+2. Where necessary refactor the queries to take advantage of this
+new structure
+
+1. Show the title and director name for all films
+SELECT title, peoples.name
+FROM films
+INNER JOIN peoples ON director_id = peoples.id
+
+2. Show the title, director and star name for all films
+SELECT title, peoples1.name as directors, peoples2.name as stars
+FROM films
+INNER JOIN peoples as peoples1 ON director_id = peoples1.id
+INNER JOIN peoples as peoples2 ON star_id = peoples2.id
+
+3. Show the title of films where the director is from the USA
+SELECT title
+FROM films
+INNER JOIN peoples ON director_id = peoples.id
+WHERE peoples.country = 'USA'
+
+4. Show only those films where the writer and the director are the same person
+SELECT *
+FROM films
+INNER JOIN peoples as peoples1 ON director_id = peoples1.id
+INNER JOIN peoples as peoples2 ON writer_id = peoples2.id
+WHERE peoples1.name = peoples2.name
+
+
+5. Show directors and film titles for films with a score of 8 or higher
+SELECT title, peoples.name
+FROM films
+INNER JOIN peoples ON director_id = peoples.id
+WHERE score >= 8
+
+6. Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables
+    i. Show film score and writer email:
+    SELECT score, peoples.email
+        FROM films
+        INNER JOIN peoples ON writer_id = peoples.id
+
+    ii. Show stars name, stars birthday and film year:
+    SELECT peoples.name, peoples.dob, year
+        FROM films
+        INNER JOIN peoples ON star_id = peoples.id
+
+    iii. Show title, and director, star and writer
+    SELECT title, directors.name, stars.name, writers.name
+        FROM films
+        INNER JOIN peoples as directors ON director_id = directors.id
+        INNER JOIN peoples as stars ON star_id = stars.id
+        INNER JOIN peoples as writers ON writer_id = writers.id
+
+    iv. Show count of different directors countries
+    SELECT COUNT(DISTINCT country)
+    FROM peoples
+
+    v. Show original table
+    SELECT title, directors.name as Director, directors.country as director_country, stars.name as star, stars.dob as star_dob, writers.name as writer, writers.email as writer_email, year, genre, score
+    FROM films
+    INNER JOIN peoples as directors ON director_id = directors.id
+    INNER JOIN peoples as stars ON star_id = stars.id
+    INNER JOIN peoples as writers ON writer_id = writers.id

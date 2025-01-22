@@ -1,0 +1,99 @@
+CREATE TABLE directors(
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  country TEXT
+  );
+
+ CREATE TABLE stars(
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  dob TEXT
+  );
+
+  CREATE TABLE writers(
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  email TEXT
+  );
+
+ CREATE TABLE films (
+   id SERIAL PRIMARY KEY,
+   title TEXT,
+   director_id INT,
+   star_id INT,
+   writer_id INT,
+   year INT,
+   genre TEXT,
+   score INT,
+   UNIQUE(title),
+   CONSTRAINT fk_director
+   	FOREIGN KEY(director_id)
+   		REFERENCES directors(id),
+   CONSTRAINT fk_star
+   	FOREIGN KEY(star_id)
+   		REFERENCES stars(id),
+   CONSTRAINT fk_writer
+   	FOREIGN KEY(writer_id)
+   		REFERENCES writers(id)
+   );
+
+
+1. Show the title and director name for all films
+SELECT title, directors.name
+FROM films
+INNER JOIN directors ON director_id = directors.id
+
+2. Show the title, director and star name for all films
+SELECT title, directors.name, stars.name
+FROM films
+INNER JOIN directors ON director_id = directors.id
+INNER JOIN stars ON star_id = stars.id
+
+3. Show the title of films where the director is from the USA
+SELECT films.title
+FROM films
+INNER JOIN directors ON director_id = directors.id
+WHERE directors.country = 'USA'
+
+4. Show only those films where the writer and the director are the same person
+SELECT *
+FROM films
+INNER JOIN directors ON director_id = directors.id
+INNER JOIN writers ON writer_id = writers.id
+WHERE directors.name = writers.name
+
+
+5. Show directors and film titles for films with a score of 8 or higher
+SELECT title, directors.name
+FROM films
+INNER JOIN directors ON director_id = directors.id
+WHERE score >= 8
+
+6. Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables
+    i. Show film score and writer email:
+    SELECT score, writers.email
+    FROM films
+    INNER JOIN writers ON writer_id = writers.id
+
+    ii. Show stars name, stars birthday and film year:
+    SELECT stars.name, stars.dob, year
+    FROM films
+    INNER JOIN stars ON star_id = stars.id
+
+    iii. Show title, and director, star and writer
+    SELECT title, directors.name, stars.name, writers.name
+    FROM films
+    INNER JOIN directors ON director_id = directors.id
+    INNER JOIN stars ON star_id = stars.id
+    INNER JOIN writers ON writer_id = writers.id
+
+    iv. Show count of different directors countries
+    SELECT COUNT(DISTINCT country)
+    FROM directors
+
+    v. Show original table
+    SELECT title, directors.name as Director, directors.country as director_country, stars.name as star, stars.dob as star_dob, writers.name as writer, writers.email as writer_email, year, genre, score
+    FROM films
+    INNER JOIN directors ON director_id = directors.id
+    INNER JOIN stars ON star_id = stars.id
+    INNER JOIN writers ON writer_id = writers.id

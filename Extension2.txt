@@ -1,0 +1,25 @@
+CREATE TABLE cast (
+  id SERIAL PRIMARY KEY,
+  film_id INT,
+  actor_id INT,
+  role TEXT,
+  CONSTRAINT fk_film
+    FOREIGN KEY (film_id)
+    REFERENCES films (id),
+  CONSTRAINT fk_actor
+    FOREIGN KEY (actor_id)
+    REFERENCES peoples (id)
+);
+
+INSERT INTO cast (film_id, actor_id, role)
+VALUES
+(1, 1, 'David Bowman'),
+(2, 2, 'Luke Skywalker'),
+(3, 3, 'Atticus Finch'),
+(4, 4, 'Jack Dawson'),
+(5, 5, 'Lara Antipova'),
+(6, 6, 'El Cid'),
+(7, 7, 'Spyros'),
+(8, 8, 'Erik Lanshof'),
+(9, 9, 'Julie Vignon'),
+(10, 10, 'Cyrano de Bergerac');
