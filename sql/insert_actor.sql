@@ -1,0 +1,10 @@
+INSERT INTO actor (actor_id, person_id) VALUES (1, 2);
+INSERT INTO actor (actor_id, person_id) VALUES (2, 5);
+INSERT INTO actor (actor_id, person_id) VALUES (3, 7);
+INSERT INTO actor (actor_id, person_id) VALUES (4, 10);
+INSERT INTO actor (actor_id, person_id) VALUES (5, 12);
+INSERT INTO actor (actor_id, person_id) VALUES (6, 15);
+INSERT INTO actor (actor_id, person_id) VALUES (7, 18);
+INSERT INTO actor (actor_id, person_id) VALUES (8, 20);
+INSERT INTO actor (actor_id, person_id) VALUES (9, 23);
+INSERT INTO actor (actor_id, person_id) VALUES (10, 25);

@@ -1,0 +1,21 @@
+ID,Title,Director,Director Country,Star,Star DOB,Writer,Writer Email,Year,Genre,Score
+1,2001: A Space Odyssey,Stanley Kubrick,USA,Keir Dullea,30/05/1936,Arthur C Clarke,arthur@clarke.com,1968,Science Fiction,10
+2,Star Wars: A New Hope,George Lucas,USA,Mark Hamill,25/09/1951,George Lucas,george@email.com,1977,Science Fiction,7
+3,Star Wars: A New Hope,George Lucas,USA,Harrison Ford,13/07/1942,George Lucas,george@email.com,1977,Science Fiction,7
+4,To Kill A Mockingbird,Robert Mulligan,USA,Gregory Peck,05/04/1916,Harper Lee,harper@lee.com,1962,Drama,10
+5,Titanic,James Cameron,Canada,Leonardo DiCaprio,11/11/1974,James Cameron,james@cameron.com,1997,Romance,5
+6,Titanic,James Cameron,Canada,Kate Winslet,05/10/1975,James Cameron,james@cameron.com,1997,Romance,5
+7,Dr Zhivago,David Lean,UK,Julie Christie,14/04/1940,Boris Pasternak,boris@boris.com,1965,Historical,8
+8,Dr Zhivago,David Lean,UK,Omar Sharif,10/04/1932,Boris Pasternak,boris@boris.com,1965,Historical,8
+9,El Cid,Anthony Mann,USA,Charlton Heston,04/10/1923,Frederick Frank,fred@frank.com,1961,Historical,6
+10,El Cid,Anthony Mann,USA,Sophia Loren,20/09/1934,Frederick Frank,fred@frank.com,1961,Historical,6
+11,Voyage to Cythera,Theodoros Angelopoulos,Greece,Manos Katrakis,14/08/1908,Theodoros Angelopoulos,theo@angelopoulos.com,1984,Drama,8
+12,Soldier of Orange,Paul Verhoeven,Netherlands,Rutger Hauer,23/01/1944,Erik Hazelhoff Roelfzema,erik@roelfzema.com,1977,Thriller,8
+13,Three Colours: Blue,Krzysztof Kieslowski,Poland,Juliette Binoche,09/03/1964,Krzysztof Kieslowski,email@email.com,1993,Drama,8
+14,Three Colours: Blue,Krzysztof Kieslowski,Poland,Benoît Régent,19/08/1943,Krzysztof Kieslowski,email@email.com,1993,Drama,8
+15,Cyrano de Bergerac,Jean-Paul Rappeneau,France,Gerard Depardieu,27/12/1948,Edmond Rostand,edmond@rostand.com,1990,Historical,9
+16,Cyrano de Bergerac,Jean-Paul Rappeneau,France,Anne Brochet,22/11/1966,Edmond Rostand,edmond@rostand.com,1990,Historical,9
+17,Interstellar,Christopher Nolan,USA,Matthew McConaughey,04/11/1969,Christopher Nolan,chris@nolan.com,2014,Science Fiction,9
+18,Interstellar,Christopher Nolan,USA,Anne Hathaway,12/11/1982,Christopher Nolan,chris@nolan.com,2014,Science Fiction,9
+19,Inception,Christopher Nolan,USA,Leonardo DiCaprio,11/11/1974,Christopher Nolan,chris@nolan.com,2010,Thriller,8
+20,Inception,Christopher Nolan,USA,Joseph Gordon-Levitt,17/02/1981,Christopher Nolan,chris@nolan.com,2010,Thriller,8

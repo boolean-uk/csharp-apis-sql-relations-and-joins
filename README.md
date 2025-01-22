@@ -1,5 +1,20 @@
 ﻿# C# API Exercise
 
+## Completed
+![image](filmdb_erd.png)
+
+Considering dropping the "actor", "director" and "writer" tables, as this information can be found by using the "person" table and joining on either "film" or a many-to-many connection to film.
+
+My `Cast` table is renamed to `film_actor`.
+
+There are two sets of data.
+- If you want the original data, use the insert files in [sql folder](sql).
+- If you want the extended (AI generated) data, use [main.sql](alt/inserts/main.sql).
+
+Before using either, you should run [create_tables.sql](sql\create_tables.sql).
+
+All queries can be found in [queries.sql](sql\queries.sql).
+
 ## Learning Objectives
 
 - Introduce SQL version of FKs and demonstrate how they relate to PKs in other tables

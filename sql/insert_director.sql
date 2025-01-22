@@ -1,0 +1,10 @@
+INSERT INTO director (director_id, person_id) VALUES (1, 1);
+INSERT INTO director (director_id, person_id) VALUES (2, 4);
+INSERT INTO director (director_id, person_id) VALUES (3, 6);
+INSERT INTO director (director_id, person_id) VALUES (4, 9);
+INSERT INTO director (director_id, person_id) VALUES (5, 11);
+INSERT INTO director (director_id, person_id) VALUES (6, 14);
+INSERT INTO director (director_id, person_id) VALUES (7, 17);
+INSERT INTO director (director_id, person_id) VALUES (8, 19);
+INSERT INTO director (director_id, person_id) VALUES (9, 22);
+INSERT INTO director (director_id, person_id) VALUES (10, 24);

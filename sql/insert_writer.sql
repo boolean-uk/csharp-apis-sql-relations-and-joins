@@ -1,0 +1,10 @@
+INSERT INTO writer (writer_id, person_id) VALUES (1, 3);
+INSERT INTO writer (writer_id, person_id) VALUES (2, 4);
+INSERT INTO writer (writer_id, person_id) VALUES (3, 8);
+INSERT INTO writer (writer_id, person_id) VALUES (4, 9);
+INSERT INTO writer (writer_id, person_id) VALUES (5, 13);
+INSERT INTO writer (writer_id, person_id) VALUES (6, 16);
+INSERT INTO writer (writer_id, person_id) VALUES (7, 17);
+INSERT INTO writer (writer_id, person_id) VALUES (8, 21);
+INSERT INTO writer (writer_id, person_id) VALUES (9, 22);
+INSERT INTO writer (writer_id, person_id) VALUES (10, 26);

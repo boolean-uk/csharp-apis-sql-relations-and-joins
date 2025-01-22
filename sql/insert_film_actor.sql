@@ -1,0 +1,10 @@
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (1, 1, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (2, 2, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (3, 3, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (4, 4, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (5, 5, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (6, 6, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (7, 7, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (8, 8, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (9, 9, True);
+INSERT INTO film_actor (film_id, actor_id, is_star) VALUES (10, 10, True);
