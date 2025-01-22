@@ -1,0 +1,121 @@
+INSERT INTO film (id, title, year, genre, score) VALUES
+(1, '2001: A Space Odyssey', 1968, 'Science Fiction', 10),
+(2, 'Star Wars: A New Hope', 1977, 'Science Fiction', 7),
+(3, 'To Kill A Mockingbird', 1962, 'Drama', 10),
+(4, 'Titanic', 1997, 'Romance', 5),
+(5, 'Dr Zhivago', 1965, 'Historical', 8),
+(6, 'El Cid', 1961, 'Historical', 6),
+(7, 'Voyage to Cythera', 1984, 'Drama', 8),
+(8, 'Soldier of Orange', 1977, 'Thriller', 8),
+(9, 'Three Colours: Blue', 1993, 'Drama', 8),
+(10, 'Cyrano de Bergerac', 1990, 'Historical', 9);
+
+INSERT INTO person (id, name, dob, country, email) VALUES
+(1, 'Stanley Kubrick', NULL, 'USA', NULL),
+(2, 'Arthur C Clarke', NULL, 'Sri Lanka', 'arthur@clarke.com'),
+(3, 'Keir Dullea', '1936-05-30', 'USA', NULL),
+(4, 'George Lucas', NULL, 'USA', 'george@email.com'),
+(5, 'Mark Hamill', '1951-09-25', 'USA', NULL),
+(6, 'Robert Mulligan', NULL, 'USA', NULL),
+(7, 'Harper Lee', NULL, 'USA', 'harper@lee.com'),
+(8, 'Gregory Peck', '1916-04-05', 'USA', NULL),
+(9, 'James Cameron', NULL, 'Canada', 'james@cameron.com'),
+(10, 'Leonardo DiCaprio', '1974-11-11', 'USA', NULL),
+(11, 'David Lean', NULL, 'UK', NULL),
+(12, 'Boris Pasternak', NULL, 'Russia', 'boris@boris.com'),
+(13, 'Julie Christie', '1940-04-14', 'UK', NULL),
+(14, 'Anthony Mann', NULL, 'USA', NULL),
+(15, 'Frederick Frank', NULL, 'USA', 'fred@frank.com'),
+(16, 'Charlton Heston', '1923-10-04', 'USA', NULL),
+(17, 'Theodoros Angelopoulos', NULL, 'Greece', 'theo@angelopoulos.com'),
+(18, 'Manos Katrakis', '1908-08-14', 'Greece', NULL),
+(19, 'Paul Verhoeven', NULL, 'Netherlands', NULL),
+(20, 'Erik Hazelhoff Roelfzema', NULL, 'Netherlands', 'erik@roelfzema.com'),
+(21, 'Rutger Hauer', '1944-01-23', 'Netherlands', NULL),
+(22, 'Krzysztof Kieslowski', NULL, 'Poland', 'email@email.com'),
+(23, 'Juliette Binoche', '1964-03-09', 'France', NULL),
+(24, 'Jean-Paul Rappeneau', NULL, 'France', NULL),
+(25, 'Edmond Rostand', NULL, 'France', 'edmond@rostand.com'),
+(26, 'Gerard Depardieu', '1948-12-27', 'France', NULL),
+(27, 'Harrison Ford', '1942-07-12', 'USA', NULL),
+(28, 'Carrie Fisher', '1956-10-21', 'USA', NULL);
+
+
+INSERT INTO roles (id, role_name) VALUES
+(1, 'Director'),
+(2, 'Writer'),
+(3, 'Actor');
+
+
+INSERT INTO person_has_role (person_id, roles_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 1),
+(4, 2),
+(5, 3),
+(6, 1),
+(7, 2),
+(8, 3),
+(9, 1),
+(9, 2),
+(10, 3),
+(11, 1),
+(12, 2),
+(13, 3),
+(14, 1),
+(15, 2),
+(16, 3),
+(17, 1),
+(17, 2),
+(18, 3),
+(19, 1),
+(20, 2),
+(21, 3),
+(22, 1),
+(22, 2),
+(23, 3),
+(24, 1),
+(25, 2),
+(26, 3),
+(27, 3),
+(28, 3);
+
+
+INSERT INTO film_directed_by (film_id, person_id) VALUES
+(1, 1),
+(2, 4),
+(3, 6),
+(4, 9),
+(5, 11),
+(6, 14),
+(7, 17),
+(8, 19),
+(9, 22),
+(10, 24);
+
+INSERT INTO film_written_by (film_id, person_id) VALUES
+(1, 2),
+(2, 4),
+(3, 7),
+(4, 9),
+(5, 12),
+(6, 15),
+(7, 17),
+(8, 20),
+(9, 22),
+(10, 25);
+
+INSERT INTO cast_members (film_id, person_id, isStar) VALUES
+(1, 3, TRUE),
+(2, 5, TRUE),
+(3, 8, TRUE),
+(4, 10, TRUE),
+(5, 13, TRUE),
+(6, 16, TRUE),
+(7, 18, TRUE),
+(8, 21, TRUE),
+(9, 23, TRUE),
+(10, 26, TRUE),
+(2, 27, FALSE),
+(2, 28, FALSE);
