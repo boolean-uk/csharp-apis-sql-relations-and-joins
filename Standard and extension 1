@@ -1,0 +1,181 @@
+CREATE TABLE People (
+	person_id serial PRIMARY KEY,
+	name VARCHAR ( 255 ) NOT NULL,
+	country VARCHAR ( 255 ),
+	dob DATE,
+	email VARCHAR ( 255 )
+);
+
+INSERT INTO 
+People (name, country, dob, email)
+VALUES
+('Stanley Kubrick', 'USA', NULL, NULL),
+('George Lucas', 'USA', NULL, 'george@email.com'),
+('Robert Mulligan', 'USA', NULL, NULL),
+('James Cameron', 'Canada', NULL, 'james@cameron.com'),
+('David Lean', 'UK', NULL, NULL),
+('Anthony Mann', 'USA', NULL, NULL),
+('Theodoros Angelopoulos', 'Greece', NULL, 'theo@angelopoulos.com'),
+('Paul Verhoeven', 'Netherlands', NULL, NULL),
+('Krzysztof Kieslowski', 'Poland', NULL, 'email@email.com'),
+('Jean-Paul Rappeneau', 'France', NULL, NULL),
+
+('Keir Dullea', NULL, '1936-05-30', NULL),
+('Mark Hamill', NULL, '1951-09-25', NULL),
+('Gregory Peck', NULL, '1916-04-05', NULL),
+('Leonardo DiCaprio', NULL, '1974-11-11', NULL),
+('Julie Christie', NULL, '1940-04-14', NULL),
+('Charlton Heston', NULL, '1923-10-04', NULL),
+('Manos Katrakis', NULL, '1908-08-14', NULL),
+('Rutger Hauer', NULL, '1944-01-23', NULL),
+('Juliette Binoche', NULL, '1964-03-09', NULL),
+('Gerard Depardieu', NULL, '1948-12-27', NULL),	
+
+('Arthur C Clarke', NULL, NULL, 'arthur@clarke.com'),
+('Harper Lee', NULL, NULL, 'harper@lee.com'),
+('Boris Pasternak', NULL, NULL, 'boris@boris.com'),
+('Frederick Frank', NULL, NULL, 'fred@frank.com'),
+('Erik Hazelhoff Roelfzema', NULL, NULL, 'erik@roelfzema.com'),
+('Edmond Rostand', NULL, NULL, 'edmond@rostand.com')
+
+CREATE TABLE Role (
+	role_id serial PRIMARY KEY,
+	role VARCHAR ( 255 ) NOT NULL
+);
+
+INSERT INTO 
+Role (role) 
+VALUES 
+('Director'), ('Star'), ('Writer')
+
+CREATE TABLE People_role (
+	people_role_id serial PRIMARY KEY,
+	personFK INTEGER NOT NULL,
+	roleFK INTEGER NOT NULL
+);
+
+INSERT INTO
+People_role (personFK, roleFK)
+VALUES
+(1, 1),
+(2, 1),
+(2, 3),
+(3, 1),
+(4, 1),
+(4, 3),
+(5, 1),
+(6, 1),
+(7, 1),
+(7, 3),
+(8, 1),
+(9, 1),
+(9, 3),
+(10, 1),
+
+(11, 2),
+(12, 2),
+(13, 2),
+(14, 2),
+(15, 2),
+(16, 2),
+(17, 2),
+(18, 2),
+(19, 2),
+(20, 2),
+
+(21, 3),
+(22, 3),
+(23, 3),
+(24, 3),
+(25, 3),
+(26, 3)
+
+SELECT * FROM People_role
+
+CREATE TABLE Films (
+	film_id serial PRIMARY KEY,
+	title VARCHAR ( 255 ) NOT NULL,
+	directorFK INTEGER NOT NULL,
+	starFK INTEGER NOT NULL,
+	writerFK INTEGER NOT NULL,
+	release_year INTEGER NOT NULL,
+	genre VARCHAR ( 255 ) NOT NULL,
+	score INTEGER NOT NULL
+);
+
+INSERT INTO 
+Films (title, directorFK, starFK, writerFK, release_year, genre, score)
+VALUES
+('2001: A Space Odyssey', 1, 11, 21, 1968, 'Science Fiction', 10),
+('Star Wars: A New Hope', 2, 12, 2, 1977, 'Science Fiction', 7),
+('To Kill A Mockingbird', 3, 13, 22, 1962, 'Drama', 10),
+('Titanic', 4, 14, 4, 1997, 'Romance', 5),
+('Dr Zhivago', 5, 15, 23, 1965, 'Historical', 8),
+('El Cid', 6, 16, 24, 1961, 'Historical', 6),
+('Voyage to Cythera', 7, 17, 7, 1984, 'Drama', 8),
+('Soldier of Orange', 8, 18, 25, 1977, 'Thriller', 8),
+('Three Colours: Blue', 9, 19, 9, 1993, 'Drama', 8),
+('Cyrano de Bergerac', 10, 20, 26, 1990, 'Historical', 9)
+
+-- Show the title and director name for all films
+SELECT films.title, people.name
+FROM films
+INNER JOIN people
+ON films.directorfk=people.person_id
+
+-- Show the title, director and star name for all films
+SELECT films.title, p1.name, p2.name
+FROM films
+LEFT JOIN people p1
+ON films.directorfk = p1.person_id
+LEFT JOIN people p2
+ON films.starfk = p2.person_id
+
+-- Show the title of films where the director is from the USA
+SELECT films.title
+FROM films
+INNER JOIN people 
+ON films.directorfk = people.person_id 
+WHERE people.country = 'USA'
+
+--Show only those films where the writer and the director are the same person
+SELECT films.title
+FROM films
+INNER JOIN people_role
+ON films.directorfk = people_role.personfk
+WHERE people_role.rolefk = 3
+
+--Show directors and film titles for films with a score of 8 or higher
+SELECT films.title, people.name
+FROM films
+INNER JOIN people
+ON films.directorfk = people.person_id
+WHERE films.score >= 8
+
+--Show the title, director, star and writer name for all films
+SELECT films.title, p1.name, p2.name, p3.name
+FROM films
+INNER JOIN people p1
+ON films.directorfk = p1.person_id
+INNER JOIN people p2
+ON films.starfk = p2.person_id
+INNER JOIN people p3
+ON films.writerfk = p3.person_id
+
+--Show only those films where the writer and the director are the same person and that person is form Greece
+SELECT films.title
+FROM films
+INNER JOIN people p1
+ON films.directorfk = p1.person_id
+INNER JOIN people p2
+ON films.writerfk = p2.person_id
+WHERE p1.name = p2.name AND p1.country = 'Greece'
+
+--Show only those films where the writer and the director are NOT the same person and the score is 8 or higher
+SELECT films.title
+FROM films
+INNER JOIN people p1
+ON films.directorfk = p1.person_id
+INNER JOIN people p2
+ON films.writerfk = p2.person_id
+WHERE p1.name != p2.name AND films.score >= 8
