@@ -1,0 +1,232 @@
+
+
+
+
+SQL for creating tables and such both core and extension
+
+CREATE TABLE People (
+    PersonID INT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Directors (
+    DirectorID INT PRIMARY KEY,
+    PersonID INT,
+    DirectorCountry VARCHAR(255) NOT NULL,
+    FOREIGN KEY (PersonID) REFERENCES People(PersonID)
+);
+
+CREATE TABLE Stars (
+    StarID INT PRIMARY KEY,
+    PersonID INT,
+    StarDOB DATE NOT NULL,
+    FOREIGN KEY (PersonID) REFERENCES People(PersonID)
+);
+
+CREATE TABLE Writers (
+    WriterID INT PRIMARY KEY,
+    PersonID INT,
+    WriterEmail VARCHAR(255) NOT NULL,
+    FOREIGN KEY (PersonID) REFERENCES People(PersonID)
+);
+
+CREATE TABLE Films (
+    ID INT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    DirectorID INT,
+    StarID INT,
+    WriterID INT,
+    Year INT NOT NULL,
+    Genre VARCHAR(255) NOT NULL,
+    Score INT NOT NULL,
+    FOREIGN KEY (DirectorID) REFERENCES Directors(DirectorID),
+    FOREIGN KEY (StarID) REFERENCES Stars(StarID),
+    FOREIGN KEY (WriterID) REFERENCES Writers(WriterID)
+);
+
+CREATE TABLE FilmCast (
+    FilmID INT,
+    ActorID INT,
+    PRIMARY KEY (FilmID, ActorID),
+    FOREIGN KEY (FilmID) REFERENCES Films(ID),
+    FOREIGN KEY (ActorID) REFERENCES People(PersonID)
+);
+
+
+INSERT INTO People (PersonID, Name) VALUES
+(1, 'Stanley Kubrick'),
+(2, 'George Lucas'),
+(3, 'Robert Mulligan'),
+(4, 'James Cameron'),
+(5, 'David Lean'),
+(6, 'Anthony Mann'),
+(7, 'Theodoros Angelopoulos'),
+(8, 'Paul Verhoeven'),
+(9, 'Krzysztof Kieslowski'),
+(10, 'Jean-Paul Rappeneau'),
+(11, 'Keir Dullea'),
+(12, 'Mark Hamill'),
+(13, 'Gregory Peck'),
+(14, 'Leonardo DiCaprio'),
+(15, 'Julie Christie'),
+(16, 'Charlton Heston'),
+(17, 'Manos Katrakis'),
+(18, 'Rutger Hauer'),
+(19, 'Juliette Binoche'),
+(20, 'Gerard Depardieu'),
+(21, 'Arthur C Clarke'),
+(22, 'Harper Lee'),
+(23, 'Boris Pasternak'),
+(24, 'Frederick Frank'),
+(25, 'Erik Hazelhoff Roelfzema'),
+(26, 'Edmond Rostand'),
+(27, 'Actor A'),
+(28, 'Actor B'),
+(29, 'Actor C'),
+(30, 'Actor D'),
+(31, 'Actor E'),
+(32, 'Actor F'),
+(33, 'Actor G'),
+(34, 'Actor H');
+
+INSERT INTO Directors (DirectorID, PersonID, DirectorCountry) VALUES
+(1, 1, 'USA'),
+(2, 2, 'USA'),
+(3, 3, 'USA'),
+(4, 4, 'Canada'),
+(5, 5, 'UK'),
+(6, 6, 'USA'),
+(7, 7, 'Greece'),
+(8, 8, 'Netherlands'),
+(9, 9, 'Poland'),
+(10, 10, 'France');
+
+INSERT INTO Stars (StarID, PersonID, StarDOB) VALUES
+(11, 11, '1936-05-30'),
+(12, 12, '1951-09-25'),
+(13, 13, '1916-04-05'),
+(14, 14, '1974-11-11'),
+(15, 15, '1940-04-14'),
+(16, 16, '1923-10-04'),
+(17, 17, '1908-08-14'),
+(18, 18, '1944-01-23'),
+(19, 19, '1964-03-09'),
+(20, 20, '1948-12-27');
+
+INSERT INTO Writers (WriterID, PersonID, WriterEmail) VALUES
+(21, 21, 'arthur@clarke.com'),
+(2, 2, 'george@email.com'),
+(22, 22, 'harper@lee.com'),
+(4, 4, 'james@cameron.com'),
+(23, 23, 'boris@boris.com'),
+(24, 24, 'fred@frank.com'),
+(7, 7, 'theo@angelopoulos.com'),
+(25, 25, 'erik@roelfzema.com'),
+(9, 9, 'email@email.com'),
+(26, 26, 'edmond@rostand.com');
+
+INSERT INTO Films (ID, Title, DirectorID, StarID, WriterID, Year, Genre, Score) VALUES
+(1, '2001: A Space Odyssey', 1, 11, 21, 1968, 'Science Fiction', 10),
+(2, 'Star Wars: A New Hope', 2, 12, 2, 1977, 'Science Fiction', 7),
+(3, 'To Kill A Mockingbird', 3, 13, 22, 1962, 'Drama', 10),
+(4, 'Titanic', 4, 14, 4, 1997, 'Romance', 5),
+(5, 'Dr Zhivago', 5, 15, 23, 1965, 'Historical', 8),
+(6, 'El Cid', 6, 16, 24, 1961, 'Historical', 6),
+(7, 'Voyage to Cythera', 7, 17, 7, 1984, 'Drama', 8),
+(8, 'Soldier of Orange', 8, 18, 25, 1977, 'Thriller', 8),
+(9, 'Three Colours: Blue', 9, 19, 9, 1993, 'Drama', 8),
+(10, 'Cyrano de Bergerac', 10, 20, 26, 1990, 'Historical', 9);
+
+INSERT INTO FilmCast (FilmID, ActorID) VALUES
+(1, 11), (1, 27), (1, 28),
+(2, 12), (2, 29), (2, 30),
+(3, 13), (3, 31), (3, 32),
+(4, 14), (4, 33), (4, 34),
+(5, 15), (5, 27), (5, 28),
+(6, 16), (6, 29), (6, 30),
+(7, 17), (7, 31), (7, 32),
+(8, 18), (8, 33), (8, 34),
+(9, 19), (9, 27), (9, 28),
+(10, 20), (10, 29), (10, 30);
+
+
+
+
+The Queries :
+
+1. Show the title and director name for all films
+SELECT Films.Title, People.Name AS Director
+FROM Films
+JOIN Directors ON Films.DirectorID = Directors.DirectorID
+JOIN People ON Directors.PersonID = People.PersonID;
+
+
+
+2. Show the title, director and star name for all films
+SELECT Films.title, Dpeople.name AS director, Speople.name AS star
+FROM Films
+INNER JOIN Directors ON films.Directorid = Directors.directorid 
+INNER JOIN People Dpeople ON Dpeople.Personid = Directors.personid 
+INNER JOIN Stars ON Films.starid = Stars.starid
+INNER JOIN People Speople ON Speople.Personid = Stars.personid;
+
+
+3.Show the title of films where the director is from the USA
+SELECT films.title 
+FROM films
+JOIN directors ON films.directorid = directors.directorid
+WHERE directors.directorcountry = 'USA';
+
+
+4. Show only those films where the writer and the director are the same person
+SELECT films.title 
+FROM films
+JOIN directors ON films.directorid = directors.directorid
+JOIN People D ON D.Personid = Directors.personid 
+JOIN writers ON films.writerid = writers.writerid
+JOIN People W ON W.Personid = writers.personid
+WHERE D.name = w.name;
+
+
+5. Show directors and film titles for films with a score of 8 or higher
+SELECT films.title as title, d.name as director
+FROM films
+JOIN directors ON films.directorid = directors.directorid
+JOIN People D ON D.Personid = Directors.personid 
+WHERE films.score >=8;
+
+6. Show the title and genre of all films
+
+SELECT Films.Title, Films.Genre
+FROM Films;
+
+7. Show the title and writer name for all films
+
+SELECT Films.Title, People.Name AS Writer
+FROM Films
+JOIN Writers ON Films.WriterID = Writers.WriterID
+JOIN People ON Writers.PersonID = People.PersonID;
+
+8. Show the title and star name for films released after the year 1980
+
+SELECT Films.Title, People.Name AS Star
+FROM Films
+JOIN Stars ON Films.StarID = Stars.StarID
+JOIN People ON Stars.PersonID = People.PersonID
+WHERE Films.Year > 1980;
+
+9. Show the title and genre of films with a score less than 7
+
+SELECT Films.Title, Films.Genre
+FROM Films
+WHERE Films.Score < 7;
+
+10. Show the title, director, and writer name for films in the “Drama” genre
+
+SELECT Films.Title, DirectorPeople.Name AS Director, WriterPeople.Name AS Writer
+FROM Films
+JOIN Directors ON Films.DirectorID = Directors.DirectorID
+JOIN People AS DirectorPeople ON Directors.PersonID = DirectorPeople.PersonID
+JOIN Writers ON Films.WriterID = Writers.WriterID
+JOIN People AS WriterPeople ON Writers.PersonID = WriterPeople.PersonID
+WHERE Films.Genre = 'Drama';
