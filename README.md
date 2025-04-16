@@ -39,7 +39,7 @@ Look at the data shown below as a single monolithic table.
 6. Once you have the tables and data set up then you need to create queries to return the data needed as shown below:
 
    1. Show the title and director name for all films
-   2. Show the title, director and star name for all films
+   2. Show the title, director and star name for all films	
    3. Show the title of films where the director is from the USA
    4. Show only those films where the writer and the director are the same person
    5. Show directors and film titles for films with a score of 8 or higher
