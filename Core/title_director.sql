@@ -1,0 +1,1 @@
+SELECT title, name FROM films JOIN directors ON films.director_fk_id = directors.id;
