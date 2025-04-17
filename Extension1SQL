@@ -1,0 +1,153 @@
+------------------------------Extension1------------------------------------------------------
+/*
+--creating the people table
+CREATE TABLE People (
+    PersonID SERIAL PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    DOB DATE,
+    Email VARCHAR(255),
+    Country VARCHAR(255)
+);
+
+
+------refactoring-------
+--directors
+ALTER TABLE Director ADD COLUMN PersonID INT;
+ALTER TABLE Director ADD CONSTRAINT Person_Director_FK FOREIGN KEY (PersonID) REFERENCES People(PersonID);
+
+--stars
+ALTER TABLE Star ADD COLUMN PersonID INT;
+ALTER TABLE Star ADD CONSTRAINT Person_Star_FK FOREIGN KEY (PersonID) REFERENCES People(PersonID);
+
+--writers
+ALTER TABLE Writer ADD COLUMN PersonID INT;
+ALTER TABLE Writer ADD CONSTRAINT Person_Writer_FK FOREIGN KEY (PersonID) REFERENCES People(PersonID);
+
+------populating the people table-------
+INSERT INTO People (Name, DOB, Email, Country) VALUES 
+('Stanley Kubrick', NULL, NULL, 'USA'),
+('George Lucas', NULL, 'george@email.com', 'USA'),
+('Robert Mulligan', NULL, NULL, 'USA'),
+('James Cameron', NULL, 'james@cameron.com', 'Canada'),
+('David Lean', NULL, NULL, 'UK'),
+('Anthony Mann', NULL, NULL, 'USA'),
+('Theodoros Angelopoulos', NULL, 'theo@angelopoulos.com', 'Greece'),
+('Paul Verhoeven', NULL, NULL, 'Netherlands'),
+('Krzysztof Kieslowski', NULL, 'email@email.com', 'Poland'),
+('Jean-Paul Rappeneau', NULL, NULL, 'France'),
+('Keir Dullea', '1936-05-30', NULL, NULL),
+('Mark Hamill', '1951-09-25', NULL, NULL),
+('Gregory Peck', '1916-04-05', NULL, NULL),
+('Leonardo DiCaprio', '1974-11-11', NULL, NULL),
+('Julie Christie', '1940-04-14', NULL, NULL),
+('Charlton Heston', '1923-10-04', NULL, NULL),
+('Manos Katrakis', '1908-08-14', NULL, NULL),
+('Rutger Hauer', '1944-01-23', NULL, NULL),
+('Juliette Binoche', '1964-03-09', NULL, NULL),
+('Gerard Depardieu', '1948-12-27', NULL, NULL),
+('Arthur C Clarke', NULL, 'arthur@clarke.com', NULL),
+('Harper Lee', NULL, 'harper@lee.com', NULL),
+('Boris Pasternak', NULL, 'boris@boris.com', NULL),
+('Frederick Frank', NULL, 'fred@frank.com', NULL),
+('Erik Hazelhoff Roelfzema', NULL, 'erik@roelfzema.com', NULL),
+('Edmond Rostand', NULL, 'edmond@rostand.com', NULL);
+
+
+------updating director star and writer tables with PersonID-------
+--director table with PersonID
+UPDATE Director d SET PersonID = p.PersonID FROM People p
+WHERE d.DirectorName = p.Name;
+
+--star table with PersonID
+UPDATE Star s SET PersonID = p.PersonID FROM People p
+WHERE s.StarName = p.Name;
+
+--writer table with PersonID
+UPDATE Writer w SET PersonID = p.PersonID FROM People p
+WHERE w.WriterName = p.Name;
+
+
+------ rewriting queries from core exercise -------
+--the title and director name for all film
+SELECT f.Title, p.Name AS DirectorName FROM Film f
+JOIN Director d ON f.DirectorID = d.DirectorID
+JOIN People p ON d.PersonID = p.PersonID;
+
+----title, director, and star name for all film
+SELECT f.Title, p1.Name AS DirectorName, p2.Name AS StarName
+FROM Film f
+JOIN Director d ON f.DirectorID = d.DirectorID
+JOIN Star s ON f.StarID = s.StarID
+JOIN People p1 ON d.PersonID = p1.PersonID
+JOIN People p2 ON s.PersonID = p2.PersonID;
+
+--the title of films where the director is from the USA
+SELECT f.Title FROM Film f
+JOIN Director d ON f.DirectorID = d.DirectorID
+JOIN People p ON d.PersonID = p.PersonID
+WHERE p.Country = 'USA';
+
+--films where the writer and the director are the same person
+SELECT f.Title FROM Film f
+JOIN Writer w ON f.WriterID = w.WriterID
+JOIN Director d ON f.DirectorID = d.DirectorID
+JOIN People p1 ON w.PersonID = p1.PersonID
+JOIN People p2 ON d.PersonID = p2.PersonID
+WHERE p1.Name = p2.Name;
+
+--directors and film titles for films with a score of 8 or higher
+SELECT f.Title, p.Name AS DirectorName FROM Film f
+JOIN Director d ON f.DirectorID = d.DirectorID
+JOIN People p ON d.PersonID = p.PersonID
+WHERE f.Score >= 8;
+
+--films released between 70's and 80's
+SELECT Title FROM Film WHERE Year BETWEEN 1970 AND 1980;
+
+--films released after 65's with a director from the USA
+SELECT f.Title FROM Film f
+JOIN Director d ON f.DirectorID = d.DirectorID
+JOIN People p ON d.PersonID = p.PersonID
+WHERE f.Year > 1965 AND p.Country = 'USA';
+
+--people that wrote a thriller
+SELECT DISTINCT p.Name AS WriterName FROM Writer w
+JOIN Film f ON w.WriterID = f.WriterID
+JOIN People p ON w.PersonID = p.PersonID
+WHERE f.Genre = 'Thriller';
+
+--USA directors that have a film with a score lower than 7
+SELECT DISTINCT p.Name AS DirectorName FROM Director d
+JOIN Film f ON d.DirectorID = f.DirectorID
+JOIN People p ON d.PersonID = p.PersonID
+WHERE p.Country = 'USA' AND f.Score < 7;
+
+--stars that were born before the 50's
+SELECT p.Name AS StarName, p.DOB FROM Star s
+JOIN People p ON s.PersonID = p.PersonID
+WHERE p.DOB < '1950-01-01';
+
+--drama films that score above 8
+SELECT Title FROM Film WHERE Genre = 'Drama' AND Score > 8;
+
+--directors that also wrote a movie
+SELECT DISTINCT p1.Name AS DirectorName FROM Director d
+JOIN Film f ON d.DirectorID = f.DirectorID
+JOIN Writer w ON f.WriterID = w.WriterID
+JOIN People p1 ON d.PersonID = p1.PersonID
+JOIN People p2 ON w.PersonID = p2.PersonID
+WHERE p1.Name = p2.Name;
+
+--stars that played in more than one film (as example)
+SELECT p.Name AS StarName, COUNT(f.FilmID) as FilmCount FROM Star s
+JOIN Film f ON s.StarID = f.StarID
+JOIN People p ON s.PersonID = p.PersonID
+GROUP BY p.Name HAVING COUNT(f.FilmID) > 1;
+
+--films written by George Lucas
+SELECT f.Title FROM Film f
+JOIN Writer w ON f.WriterID = w.WriterID
+JOIN People p ON w.PersonID = p.PersonID
+WHERE p.Name = 'George Lucas';
+*/
+----------------------------------------------------------------------------------------------
