@@ -1,0 +1,4 @@
+SELECT title, director_name, writer_name FROM films 
+inner join director on director_fk_id = director.id
+inner join writer on writer_fk_id = writer.id
+where writer_name ilike director_name;

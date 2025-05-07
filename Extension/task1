@@ -1,0 +1,129 @@
+CREATE TABLE films(
+	id serial PRIMARY KEY,
+	title varchar(255), 
+	genre varchar(50),
+	release_year INTEGER,
+	score INTEGER, 
+	people_fk_id integer
+);
+
+CREATE TABLE people(
+	id serial primary key,
+	people_name varchar(50)
+);
+
+CREATE TABLE actors(
+	id serial primary key,
+	people_fk_id integer,
+	dob date
+);
+
+CREATE TABLE directors(
+	id serial primary key,
+	people_fk_id integer,
+	country varchar(50)
+);
+
+CREATE TABLE writers(
+	id serial primary key,
+	people_fk_id integer,
+	contact_info varchar(255)
+);
+
+INSERT INTO people (name) VALUES
+  ('Stanley Kubrick'),
+  ('George Lucas'),
+  ('Robert Mulligan'),
+  ('James Cameron'),
+  ('David Lean'),
+  ('Anthony Mann'),
+  ('Theodoros Angelopoulos'),
+  ('Paul Verhoeven'),
+  ('Krzysztof Kieslowski'),
+  ('Jean-Paul Rappeneau'),
+  ('Arthur C Clarke'),
+  ('Harper Lee'),
+  ('Boris Pasternak'),
+  ('Frederick Frank'),
+  ('Erik Hazelhoff Roelfzema'),
+  ('Edmond Rostand'),
+  ('Keir Dullea'),
+  ('Mark Hamill'),
+  ('Gregory Peck'),
+  ('Leonardo DiCaprio'),
+  ('Julie Christie'),
+  ('Charlton Heston'),
+  ('Manos Katrakis'),
+  ('Rutger Hauer'),
+  ('Juliette Binoche'),
+  ('Gerard Depardieu');
+  
+  
+INSERT INTO writers (people_fk_id, contact_info) VALUES
+  (11, 'arthur@clarke.com'),
+  (2, 'george@email.com'),
+  (13, 'harper@lee.com'),
+  (4, 'james@cameron.com'),
+  (15, 'boris@boris.com'),
+  (16, 'fred@frank.com'),
+  (7, 'theo@angelopoulos.com'),
+  (18, 'erik@roelfzema.com'),
+  (9, 'email@email.com'),
+  (20, 'edmond@rostand.com');
+
+INSERT INTO actors (people_fk_id, dob) VALUES
+  (17, '1936-05-30'),
+  (18, '1951-09-25'),
+  (19, '1916-04-05'),
+  (20, '1974-11-11'),
+  (21, '1940-04-14'),
+  (22, '1923-10-04'),
+  (23, '1908-08-14'),
+  (24, '1944-01-23'),
+  (25, '1964-03-09'),
+  (26, '1948-12-27');
+
+INSERT INTO films (title, directors_fk_id, writers_fk_id, actors_fk_id, release_year, score, genre) VALUES
+  ('2001: A Space Odyssey', 1, 1, 1, 1968, 10, 'Science Fiction'),
+  ('Star Wars: A New Hope', 2, 2, 2, 1977, 7, 'Science Fiction'),
+  ('To Kill A Mockingbird', 3, 3, 3, 1962, 10, 'Drama'),
+  ('Titanic', 4, 4, 4, 1997, 5, 'Romance'),
+  ('Dr Zhivago', 5, 5, 5, 1965, 8, 'Historical'),
+  ('El Cid', 6, 6, 6, 1961, 6, 'Historical'),
+  ('Voyage to Cythera', 7, 7, 7, 1984, 8, 'Drama'),
+  ('Soldier of Orange', 8, 8, 8, 1977, 8, 'Thriller'),
+  ('Three Colours: Blue', 9, 9, 9, 1993, 8, 'Drama'),
+  ('Cyrano de Bergerac', 10, 10, 10, 1990, 9, 'Historical');
+
+-- i
+SELECT title, people."name" From films 
+left join directors on directors_fk_id = directors.id
+inner join people on directors_fk_id = people.id;
+
+-- ii
+SELECT title, p1.name as director, p2.name as actors From films 
+inner join directors on films.directors_fk_id = directors.id
+inner join actors on films.actors_fk_id = actors.people_fk_id
+inner join people p1 on directors_fk_id = p1.id
+inner join people p2 on actors_fk_id = p2.id;
+
+--iii
+SELECT title, country From films 
+inner join directors on directors_fk_id = directors.id
+where country iLike 'usa';
+
+-- iv 
+SELECT title, p1.name as name FROM films 
+inner join directors on directors_fk_id = directors.people_fk_id
+inner join writers on writers_fk_id = writers.people_fk_id
+inner join people p1 on directors_fk_id = p1.id
+inner join people p2 on writers_fk_id = p2.id
+where p1.id = p2.id;
+
+-- v
+SELECT title, score, people.name FROM films
+inner join directors on directors_fk_id = director.id
+inner join people on directors_fk_id = people.id
+where score >= 8;
+
+
