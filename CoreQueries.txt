@@ -1,0 +1,110 @@
+4. 
+
+CREATE TABLE directors (
+    directorid SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    country VARCHAR(255)
+);
+
+CREATE TABLE stars (
+    starid SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    dob DATE
+);
+
+CREATE TABLE writers (
+    writerid SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255)
+);
+
+CREATE TABLE movies (
+    movieid SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    year INT,
+    genre VARCHAR(255),
+    score INT,
+    directorid INT,
+    starid INT,
+    writerid INT,
+    FOREIGN KEY (directorid) REFERENCES directors(directorid),
+    FOREIGN KEY (starid) REFERENCES stars(starid),
+    FOREIGN KEY (writerid) REFERENCES writers(writerid)
+);
+
+5. 
+
+Inserted the values, that is a lot of commands, I am going to spare everyones time.
+
+6. Once you have the tables and data set up then you need to create queries to return the data needed as shown below:
+
+   1. Show the title and director name for all films
+	
+	SELECT movies.title, directors.name
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+
+   2. Show the title, director and star name for all films
+	
+	SELECT movies.title, directors.name as director_name, stars.name as star_name
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN stars ON movies.starid = stars.starid
+
+   3. Show the title of films where the director is from the USA
+
+	SELECT movies.title, directors.country
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	WHERE directors.country = 'USA';
+
+   4. Show only those films where the writer and the director are the same person
+
+	SELECT movies.title, directors.name as director_name, writers.name as writer_name
+	FROM movies
+	INNER JOIN writers ON movies.writerid = writers.writerid
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	WHERE writers.name = directors.name;
+
+   5. Show directors and film titles for films with a score of 8 or higher
+
+	SELECT movies.title, directors.name as director_name, movies.score
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	WHERE movies.score >= 8;
+
+   6. Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables.
+
+    #Show movies and directors with the genres drama and science fiction
+
+    SELECT movies.title, directors.name as director_name, movies.genre
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	WHERE movies.genre IN ('Drama', 'Science Fiction');
+   
+   #Show movies and their directors with a movie score of 8 or more
+
+    SELECT movies.title, directors.name as director_name, movies.score
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	WHERE movies.score >= 8
+	AND movies.title LIKE '%a%';
+
+	# Show the diretor's average movie scores
+
+	SELECT directors.name as director_name, AVG(movies.score)
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	GROUP BY directors.name;
+
+	# Show the avarage movie score of each country
+
+	SELECT directors.country, AVG(movies.score)
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	GROUP BY directors.country;
+
+	# Show the avarage movie score of each genre
+	SELECT movies.genre, AVG(movies.score), Count(movies.genre)
+	FROM movies
+	GROUP BY movies.genre;

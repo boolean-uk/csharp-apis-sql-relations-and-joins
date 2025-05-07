@@ -1,0 +1,107 @@
+## Extension Task 1
+
+1. Refactor the database tables so that the Actors, Directors and Writers all identify people (using a Foreign Key) that are present in a single People table
+
+CREATE TABLE People(
+	peopleID SERIAL PRIMARY KEY,
+	name varchar(255)
+);
+
+INSERT INTO people(name)(
+VALUES
+('Stanley Kubrick'),('George Lucas'),('Robert Mulligan'),('James Cameron'),('David Lean'),('Anthony Mann'),('Theodoros Angelopoulos'),('Paul Verhoeven'),('Krzysztof Kieslowski'),('Jean-Paul Rappeneau'),
+('Keir Dullea'), ('Mark Hamill'), ('Gregory Peck'). ('Leonardo DiCaprio'), ('Julie Christine'), ('Charlton Heston'), ('Manos Katrakis'), ('Rutger Hauer'), ('Juliette Binoche'), ('Gerard Depardieu'),
+('Arthur C Clarke'), ('Harper Lee'),('Boris Pasternak'), ('Frederick Frank'), ('Erik Hazelhoff Roelfzema'), ('Edmond Rostand')
+);
+
+Did the next steps for tables stars, writers and directors
+
+ALTER TABLE directors
+ADD peopleID INT;
+
+UPDATE "public"."directors" SET "peopleid" = 1 WHERE "directorid" = 1;
+UPDATE "public"."directors" SET "peopleid" = 2 WHERE "directorid" = 2;
+UPDATE "public"."directors" SET "peopleid" = 3 WHERE "directorid" = 3;
+UPDATE "public"."directors" SET "peopleid" = 4 WHERE "directorid" = 4;
+UPDATE "public"."directors" SET "peopleid" = 5 WHERE "directorid" = 5;
+UPDATE "public"."directors" SET "peopleid" = 6 WHERE "directorid" = 6;
+UPDATE "public"."directors" SET "peopleid" = 7 WHERE "directorid" = 7;
+UPDATE "public"."directors" SET "peopleid" = 8 WHERE "directorid" = 8;
+UPDATE "public"."directors" SET "peopleid" = 9 WHERE "directorid" = 9;
+UPDATE "public"."directors" SET "peopleid" = 10 WHERE "directorid" = 10; ---This will vary from table to table ofc
+
+Alter TABLE directors
+DROP COLUMN name;
+
+ALTER TABLE directors
+ADD FOREIGN KEY (peopleid) REFERENCES people(peopleid);
+
+2. Where necessary refactor the queries to take advantage of this new structure
+
+	1. Show the title and director name for all films
+
+	SELECT movies.title, people.name as director_name
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN people ON people.peopleid = directors.peopleid
+
+	 2. Show the title, director and star name for all films
+	
+	SELECT movies.title, p_directors.name as director_name, p_stars.name as star_name
+	FROM movies 
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN people p_directors ON p_directors.peopleid = directors.peopleid
+	INNER JOIN stars ON movies.starid = stars.starid
+	INNER JOIN people p_stars ON p_stars.peopleid = stars.peopleid;
+
+	3. No change
+
+	4. Show only those films where the writer and the director are the same person
+
+	SELECT movies.title
+	FROM movies
+	INNER JOIN writers ON movies.writerid = writers.writerid
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	WHERE writers.peopleid = directors.peopleid;
+
+	5. Show directors and film titles for films with a score of 8 or higher
+
+	SELECT movies.title, people.name as director_name, movies.score
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN people ON directors.peopleid = people.peopleid
+	WHERE movies.score >= 8;
+
+
+	Extras:
+	
+	#Show movies and directors with the genres drama and science fiction
+
+	SELECT movies.title, p_dir.name as director_name, movies.genre
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN people p_dir ON directors.peopleid = p_dir.peopleid
+	WHERE movies.genre IN ('Drama', 'Science Fiction');
+
+	#Show movies and their directors with a movie score of 8 or more
+
+	SELECT movies.title, people.name as director_name, movies.score
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN people ON directors.peopleid = people.peopleid
+	WHERE movies.score >= 8
+	AND movies.title LIKE '%a%';
+
+	# Show the director's average movie scores
+
+	SELECT people.name as director_name, AVG(movies.score)
+	FROM movies
+	INNER JOIN directors ON movies.directorid = directors.directorid
+	INNER JOIN people ON directors.peopleid = people.peopleid
+	GROUP BY people.name;
+
+	# Show the avarage movie score of each country
+	No change
+
+	# Show the avarage movie score of each genre
+	No change

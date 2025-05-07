@@ -1,0 +1,41 @@
+1. Add a Cast table that links Films to Actors (ie the Cast table contains details of all of the Actors in addition to the Star who appear in the Film).
+
+Renamed the stars table to actors (since then I don't have to make up new names)
+
+Creating the table:
+
+CREATE TABLE actor_in_cast(
+	id SERIAL PRIMARY KEY,
+	movie_id INT,
+	actor_id,
+	FOREIGN KEY (movie_id) REFERENCES movies(movieid)
+	FOREIGN KEY (actor_id) REFERENCES actors(actor_id)
+);
+
+2. You can either add some more people as actors (these can be real actors or just made up names) or just reuse all of the existing people.
+
+Inserted random movies to random actor_id's but, included always the star in the cast:
+
+INSERT INTO actor_in_cast (movie_id, actor_id)
+VALUES
+(1, 1),(1,2),(1,3),
+(2, 2),(2,10),(2,9),
+(3, 3),(3,6),
+(4, 4),
+(5, 5),
+(6,6),(6,1),(6,7),(6,10),
+(7,7),(7,3),(7,8),(7,9),
+(8,8),
+(9,9),(9,2),
+(10,10), (10,5), (10,2), (10, 3), (10, 4);
+
+Let's test with a query:
+
+SELECT ac.id, m.title, a_name.name
+FROM actor_in_cast ac 
+INNER JOIN movies m ON ac.movie_id = m.movieid
+INNER JOIN actors a ON ac.actor_id = a.actor_id
+INNER JOIN people a_name ON a.peopleid = a_name.peopleid
+WHERE m.title = 'El Cid';
+
+This gave the cast of the movie 'El Cid'
