@@ -1,0 +1,2 @@
+--Show all the film titles where the director has an 'e' in their name, the star is born on a wednesday and the score is higher than 7.
+select f.title, d.name as directorName, s.name starName from films f left join directors d ON f.director_fk = d.id left join stars s ON f.star_fk = s.id where d.name like '%e%' AND to_char(s.birthDate, 'Day') = 'Wednesday' AND f.score > 7;

@@ -1,0 +1,2 @@
+--Show all films where the writer's email has 'email' in it
+select f.title, pw.name as writerName, w.email as writerEmail from films f left join writers w ON f.writer_fk = w.id left join people pw ON w.people_fk = pw.id where w.email like '%email%';

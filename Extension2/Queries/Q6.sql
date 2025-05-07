@@ -1,0 +1,2 @@
+--Show all the films where either the director, star, or writer's name start with the letter A
+select f.title, pd.name as directorName, ps.name as starName, pw.name as writerName from films f left join directors d ON f.director_fk = d.id left join stars s ON f.star_fk = s.id left join writers w ON f.writer_fk = w.id left join people pd ON d.people_fk = pd.id left join people ps ON s.people_fk = ps.id left join people pw ON w.people_fk = pw.id where pd.name LIKE 'A%' OR ps.name LIKE 'A%' OR pw.name LIKE 'A%';

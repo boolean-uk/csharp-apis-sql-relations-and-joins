@@ -1,0 +1,2 @@
+--List all the cast for the film Star wars
+select f.title, cp.name as actorName, c.isStar as isStar from casts c left join films f ON c.film_fk = f.id left join people cp ON c.people_fk = cp.id where f.title like '%Star Wars%';

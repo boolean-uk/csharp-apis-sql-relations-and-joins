@@ -1,0 +1,2 @@
+--Show only the films where the writer and director are the same person
+select title, release_year, genre, score, d.name as directorName, w.name as writerName from films left join directors d ON films.director_fk = d.id left join writers w ON films.writer_fk = w.id where d.name = w.name;

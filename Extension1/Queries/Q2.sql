@@ -1,0 +1,2 @@
+--Title, director and star names
+select f.title, pd.name as director, ps.name as star from films f left join directors d ON f.director_fk = d.id left join stars s ON f.star_fk = s.id left join people pd ON d.people_fk = pd.id left join people ps ON s.people_fk = ps.id;

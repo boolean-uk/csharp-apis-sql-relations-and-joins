@@ -1,0 +1,2 @@
+--Show only the film titles where the first letter of the film matches the first letter of the director's name
+select f.title, pd.name as directorName from films f left join directors d ON f.director_fk = d.id left join people pd ON d.people_fk = pd.id where substring(f.title, 1, 1) = substring(pd.name, 1, 1);

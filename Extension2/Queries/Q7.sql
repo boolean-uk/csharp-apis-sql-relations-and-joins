@@ -1,0 +1,2 @@
+--Show all the films where the star was born after 1950
+select f.title, extract(year from s.birthDate) as starBirthYear from films f left join stars s ON f.star_fk = s.id where extract(year from s.birthDate) > 1950;

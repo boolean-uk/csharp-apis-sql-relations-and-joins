@@ -1,0 +1,2 @@
+--Show directors and film titles for films with a score of 8 or higher
+select pd.name as directors, f.title from films f left join directors d ON f.director_fk = d.id left join people pd ON d.people_fk = pd.id where f.score >= 8;
