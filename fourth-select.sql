@@ -1,0 +1,6 @@
+--Show only those films where the writer and the director are the same person
+-- select f.*,d.director_name,w.writter_name
+-- from film f
+-- left join director d on f.directorfk = d.director_id 
+-- left join writter w on f.writterfk = w.writter_id 
+-- where w.writter_name = d.director_name

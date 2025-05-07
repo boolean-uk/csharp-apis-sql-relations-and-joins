@@ -1,0 +1,5 @@
+--Show the title of films where the director is from the USA
+-- select f.film_title,d.director_name,d.director_coutry
+-- from film f
+-- left join director d on d.director_coutry = 'USA' and f.directorfk = d.director_id 
+-- WHERE d.director_coutry is not null
