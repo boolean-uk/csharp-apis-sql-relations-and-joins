@@ -1,0 +1,4 @@
+SELECT film.title AS film_title
+FROM film
+INNER JOIN directors ON film.director_id = directors.id
+WHERE directors.country  = 'USA'

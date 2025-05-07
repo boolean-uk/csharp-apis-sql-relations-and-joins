@@ -1,0 +1,5 @@
+SELECT film.title AS film_title,
+FROM film
+INNER JOIN directors ON film.director_id = directors.id
+INNER JOIN writers ON film.writer_id = writers.id
+WHERE directors.name  = writers.name

@@ -1,0 +1,6 @@
+SELECT film.title AS film_title,
+directors.name AS director_name,
+star.name AS star_name
+FROM film
+INNER JOIN directors ON film.director_id = directors.id
+INNER JOIN star ON film.star_id = star.id

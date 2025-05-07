@@ -1,0 +1,60 @@
+1. SELECT 
+    film.name AS movie_name,
+    directors.name AS director_name,
+    writers.name AS writer_name
+FROM 
+    film
+INNER JOIN 
+    directors ON film.director_id = directors.id
+INNER JOIN 
+    writers ON film.writer_id = writers.id;
+
+    2. SELECT 
+    film.name AS movie_name,
+    star.name AS star_name
+FROM 
+    film
+INNER JOIN 
+    star ON film.star_id = star.id
+WHERE 
+    star.country = 'USA';
+
+
+    3. 
+    SELECT 
+    directors.name AS director_name,
+    COUNT(film.id) AS movie_count
+FROM 
+    directors
+LEFT JOIN 
+    film ON directors.id = film.director_id
+GROUP BY 
+    directors.name;
+
+    4. 
+    SELECT 
+    star.name AS star_name,
+    COUNT(film.id) AS movie_count
+FROM 
+    star
+INNER JOIN 
+    film ON star.id = film.star_id
+GROUP BY 
+    star.name
+HAVING 
+    COUNT(film.id) > 1;
+
+    5. 
+    SELECT 
+    film.name AS movie_name,
+    film.release_year,
+    directors.name AS director_name,
+    writers.name AS writer_name
+FROM 
+    film
+INNER JOIN 
+    directors ON film.director_id = directors.id
+INNER JOIN 
+    writers ON film.writer_id = writers.id
+WHERE 
+    film.release_year > 2000;

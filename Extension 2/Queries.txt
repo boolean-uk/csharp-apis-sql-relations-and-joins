@@ -1,0 +1,29 @@
+1. Creating cast Table
+CREATE TABLE cast (
+    cast_id SERIAL PRIMARY KEY,
+    film_id INT NOT NULL,
+    person_id INT NOT NULL,
+    role VARCHAR(100),
+    FOREIGN KEY (film_id) REFERENCES film(id) ON DELETE CASCADE,
+    FOREIGN KEY (person_id) REFERENCES people(person_id) ON DELETE CASCADE
+);
+
+2. INSERTING VALUES : 
+
+INSERT INTO movie_cast (film_id, person_id, role) VALUES
+(1, (SELECT id FROM people WHERE name = 'Keir Dullea'), 'Lead Actor'),
+(2, (SELECT id FROM people WHERE name = 'Mark Hamill'), 'Lead Actor'),
+(3, (SELECT id FROM people WHERE name = 'Gregory Peck'), 'Lead Actor'),
+(4, (SELECT id FROM people WHERE name = 'Leonardo DiCaprio'), 'Lead Actor'),
+(5, (SELECT id FROM people WHERE name = 'Julie Christie'), 'Lead Actress'),
+(6, (SELECT id FROM people WHERE name = 'Charlton Heston'), 'Lead Actor'),
+(7, (SELECT id FROM people WHERE name = 'Manos Katrakis'), 'Lead Actor'),
+(8, (SELECT id FROM people WHERE name = 'Rutger Hauer'), 'Lead Actor'),
+(9, (SELECT id FROM people WHERE name = 'Juliette Binoche'), 'Lead Actress'),
+(10, (SELECT id FROM people WHERE name = 'Gerard Depardieu'), 'Lead Actor'),
+
+(1, (SELECT id FROM people WHERE name = 'Emily Blunt'), 'Supporting Actress'),
+(2, (SELECT id FROM people WHERE name = 'Chris Hemsworth'), 'Supporting Actor'),
+(3, (SELECT id FROM people WHERE name = 'Zendaya'), 'Supporting Actress'),
+(4, (SELECT id FROM people WHERE name = 'Tom Hardy'), 'Supporting Actor'),
+(5, (SELECT id FROM people WHERE name = 'Lupita Nyong'), 'Supporting Actress')
