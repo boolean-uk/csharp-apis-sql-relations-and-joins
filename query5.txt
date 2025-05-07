@@ -1,0 +1,3 @@
+SELECT FROM otherFilms
+JOIN directors ON otherFilms.director_id = directors.director_id
+WHERE otherFilms.score >= 8;

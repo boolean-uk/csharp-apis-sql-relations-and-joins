@@ -1,0 +1,4 @@
+SELECT genre, title, MAX(score) AS highest_score
+FROM otherFilms
+GROUP BY genre, title
+ORDER BY genre, highest_score ASC;

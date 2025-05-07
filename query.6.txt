@@ -1,0 +1,4 @@
+SELECT Directors.name AS director_name, AVG(otherFilms.score) AS average_score
+FROM otherFilms
+JOIN Directors ON otherFilms.director_id = Directors.director_id
+GROUP BY Directors.name;

@@ -1,0 +1,4 @@
+SELECT otherFilms.title, directors.country
+FROM otherfilms
+JOIN Directors ON otherFilms.director_id = Directors.director_id
+WHERE directors.country = 'USA'

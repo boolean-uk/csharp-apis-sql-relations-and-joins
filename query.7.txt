@@ -1,0 +1,5 @@
+SELECT Stars.name AS star_name, COUNT(otherFilms.film_id) AS film_count
+FROM otherFilms
+JOIN Stars ON otherFilms.star_id = Stars.star_id
+GROUP BY Stars.name
+HAVING COUNT(otherFilms.film_id) > 1;

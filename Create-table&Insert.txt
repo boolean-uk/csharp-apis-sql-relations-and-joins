@@ -1,0 +1,83 @@
+
+CREATE TABLE otherfilms (
+    otherFilm_id INT PRIMARY KEY,
+    title VARCHAR(255),
+    year INT,
+    genre VARCHAR(50),
+    score INT,
+    director_id INT,
+    star_id INT,
+    writer_id INT,
+    FOREIGN KEY (director_id) REFERENCES Directors(director_id),
+    FOREIGN KEY (star_id) REFERENCES Stars(star_id),
+    FOREIGN KEY (writer_id) REFERENCES Writers(writer_id)
+);
+CREATE TABLE Directors (
+    director_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    country VARCHAR(100)
+);
+
+-- Stars Table
+CREATE TABLE Stars (
+    star_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    dob DATE
+);
+
+-- Writers Table
+CREATE TABLE Writers (
+    writer_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255)
+);
+
+
+INSERT INTO Director (DirectorID, Name, Country) VALUES
+(1, 'Stanley Kubrick', 'USA'),
+(2, 'George Lucas', 'USA'),
+(3, 'Robert Mulligan', 'USA'),
+(4, 'James Cameron', 'Canada'),
+(5, 'David Lean', 'UK'),
+(6, 'Anthony Mann', 'USA'),
+(7, 'Theodoros Angelopoulos', 'Greece'),
+(8, 'Paul Verhoeven', 'Netherlands'),
+(9, 'Kryszstof Kielslowski', 'Poland'),
+(10, 'Jean-Paul Rappeneau', 'France');
+
+INSERT INTO Star (StarID, Name, DOB) VALUES
+(1, 'Kei Dullea', '1936-05-30'),
+(2, 'Mark Hamill', '1951-09-25'),
+(3, 'Gregory Peck', '1916-04-05'),
+(4, 'Leonardo DiCaprio', '1974-11-11'),
+(5, 'Julie Christie', '1940-04-14'),
+(6, 'Charlton Heston', '1923-10-04'),
+(7, 'Manos Katrakis', '1908-08-14'),
+(8, 'Rutger Hauer', '1944-01-23'),
+(9, 'Juliette Binoche', '1964-03-09'),
+(10, 'Gerard Depardieu', '1948-12-27');
+
+INSERT INTO Film (FilmID, Title, Year, Genre, Score, DirectorID, StarID) VALUES
+(1, '2001: A Space Odyssey', 1986, 'Science Fiction', 10, 1, 1),
+(2, 'Star Wars: A New Hope', 1977, 'Science Fiction', 7, 2, 2),
+(3, 'To Kill A Mockingbird', 1962, 'Drama', 10, 3, 3),
+(4, 'Titanic', 1997, 'Romance', 5, 4, 4),
+(5, 'Dr Zhivago', 1965, 'Historical', 8, 5, 5),
+(6, 'El Cid', 1961, 'Historical', 6, 6, 6),
+(7, 'Voyage to Cythera', 1984, 'Drama', 8, 7, 7),
+(8, 'Soldier of Orange', 1977, 'Thriller', 8, 8, 8),
+(9, 'Three Colours: Blue', 1993, 'Drama', 8, 9, 9),
+(10, 'Cyrano de Bergerac', 1990, 'Historical', 9, 10, 10);
+
+INSERT INTO Writer (WriterID, Name, Email) VALUES
+(1, 'Arthur C Clarke', 'arthur@clarke.com'),
+(2, 'George Lucas', 'george@email.com'),
+(3, 'Harper Lee', 'harper@lee.com'),
+(4, 'James Cameron', 'james@cameron.com'),
+(5, 'Boris Pasternak', 'boris@boris.com'),
+(6, 'Frederik Frank', 'fred@frank.com'),
+(7, 'Theodoros Angelopoulos', 'theo@angelopoulos.com'),
+(8, 'Erik Hazelhoff', 'erik@roelfzema.com'),
+(9, 'Kryszstof', 'email@rmail.com'),
+(10, 'Edmond Rostand', 'edmond@rostand.com');
+

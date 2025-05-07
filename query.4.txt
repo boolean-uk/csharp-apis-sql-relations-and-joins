@@ -1,0 +1,5 @@
+SELECT otherFilms.title AS title
+FROM otherFilms
+JOIN directors ON otherFilms.director_id = directors.director_id
+JOIN writers ON otherFilms.writer_id = writers.writer_id
+WHERE directors.name = writers.name;
