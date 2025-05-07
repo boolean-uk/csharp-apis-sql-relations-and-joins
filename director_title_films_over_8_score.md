@@ -1,0 +1,1 @@
+SELECT movies.title, people.name AS director FROM movies_directors JOIN directors ON movies_directors.directors_id = directors.id JOIN people ON directors.people_id = people.id JOIN movies ON movies_directors.movie_id = movies.id WHERE movies.score >= 8;

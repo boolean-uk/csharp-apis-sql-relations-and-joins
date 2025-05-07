@@ -1,0 +1,1 @@
+SELECT m.title, people.name as writer FROM movies m JOIN movies_writers mw ON m.id = mw.movie_id JOIN writers ON mw.writers_id = writers.id JOIN people ON writers.people_id = people.id;
