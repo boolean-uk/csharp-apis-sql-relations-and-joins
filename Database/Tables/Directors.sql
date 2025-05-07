@@ -1,0 +1,5 @@
+CREATE TABLE directors(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    country VARCHAR(15) NOT NULL
+);

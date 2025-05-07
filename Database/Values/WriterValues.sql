@@ -1,0 +1,10 @@
+INSERT INTO writers (name, email) VALUES ('Arthur C Clarke', 'arthur@clarke.com');
+INSERT INTO writers (name, email) VALUES ('George Lucas', 'george@email.com');
+INSERT INTO writers (name, email) VALUES ('Harper Lee', 'harper@lee.com');
+INSERT INTO writers (name, email) VALUES ('James Cameron', 'james@cameron.com');
+INSERT INTO writers (name, email) VALUES ('Boris Pasternak', 'boris@boris.com');
+INSERT INTO writers (name, email) VALUES ('Frederick Frank', 'fred@frank.com');
+INSERT INTO writers (name, email) VALUES ('Theodoros Angelopoulos', 'theo@angelopoulos.com');
+INSERT INTO writers (name, email) VALUES ('Erik Hazelhoff Roelfzema', 'erik@roelfzema.com');
+INSERT INTO writers (name, email) VALUES ('Krzysztof Kieslowski', 'email@email.com');
+INSERT INTO writers (name, email) VALUES ('Edmond Rostand', 'edmond@rostand.com');

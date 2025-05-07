@@ -1,0 +1,5 @@
+CREATE TABLE writers(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL
+);
