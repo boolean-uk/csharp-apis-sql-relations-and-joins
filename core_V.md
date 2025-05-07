@@ -1,0 +1,2 @@
+--V. Show directors and film titles for films with a score of 8 or higher
+--SELECT director.name, film.title FROM director INNER JOIN film ON director.id = film.director_id WHERE film.score >= 8 
