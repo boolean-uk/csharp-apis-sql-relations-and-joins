@@ -1,0 +1,2 @@
+-- Get the name and the director of the newest movie
+SELECT film.title, directors.name FROM (film JOIN directors ON film.director_id = directors.id) ORDER BY film.year DESC LIMIT 1

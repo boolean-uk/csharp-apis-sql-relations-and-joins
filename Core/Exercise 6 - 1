@@ -1,0 +1,2 @@
+-- Show the name of the stars that play in a historical movie
+SELECT stars.star_name FROM (film JOIN stars ON film.star_id = stars.id) WHERE film.genre = 'Historical'

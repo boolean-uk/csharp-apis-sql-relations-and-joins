@@ -1,0 +1,2 @@
+-- Get each movie where the star was born in 1940 
+SELECT film.title FROM (film JOIN stars ON film.star_id = stars.id) WHERE stars.date_of_birth LIKE '%/1940'
