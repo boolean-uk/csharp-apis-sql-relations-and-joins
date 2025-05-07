@@ -1,0 +1,104 @@
+CREATE TABLE IF NOT EXISTS People(
+	personID serial PRIMARY KEY,
+	name VARCHAR(100) NOT NULL
+);
+
+
+------------------------------------------------------
+INSERT INTO People (name)
+SELECT star_name
+FROM Stars;
+------------------------------------------------------
+INSERT INTO People (name)
+SELECT director_name
+FROM Directors;
+------------------------------------------------------
+INSERT INTO People (name)
+SELECT writer_name
+FROM Writers
+INNER JOIN Directors ON writers.writerid = directors.directorid
+WHERE NOT writers.writer_name = directors.director_name;
+------------------------------------------------------
+
+
+------------------------------------------------------
+ALTER TABLE Writers
+ADD personID INTEGER,
+ADD FOREIGN KEY (personID) REFERENCES People(personID);
+------------------------------------------------------
+ALTER TABLE Directors
+ADD personID INTEGER,
+ADD FOREIGN KEY (personID) REFERENCES People(personID);
+------------------------------------------------------
+ALTER TABLE Stars
+ADD personID INTEGER,
+ADD FOREIGN KEY (personID) REFERENCES People(personID);
+------------------------------------------------------
+
+
+------------------------------------------------------
+UPDATE Stars
+SET personID = people.personID 
+FROM People
+WHERE people.name = stars.star_name;
+------------------------------------------------------
+UPDATE Directors
+SET personID = people.personID
+FROM People
+WHERE people.name = directors.director_name;
+------------------------------------------------------
+UPDATE Writers
+SET personID = people.personID
+FROM People
+WHERE people.name = writers.writer_name;
+------------------------------------------------------
+
+
+------------------------------------------------------
+ALTER TABLE Stars
+DROP COLUMN star_name;
+------------------------------------------------------
+ALTER TABLE Writers
+DROP COLUMN writer_name;
+------------------------------------------------------
+ALTER TABLE Directors
+DROP COLUMN director_name;
+------------------------------------------------------
+
+
+
+
+-- 1.Show the title and director name for all films
+SELECT films.title, people.name as "director"
+FROM films 
+INNER JOIN directors ON films.directorID = directors.directorid
+INNER JOIN people ON directors.personid = people.personid;
+
+-- 2.Show the title, director and star name for all films
+SELECT films.title, dir.name as "director", s.name as "star"
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+INNER JOIN stars ON films.starID = stars.starID 
+INNER JOIN people dir ON directors.personid = dir.personid
+INNER JOIN people s ON stars.personid = s.personid;
+
+-- 3.Show the title of films where the director is from the USA
+SELECT films.title
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+WHERE directors.director_country = 'USA';
+
+-- 4.Show only those films where the writer and the director are the same person
+SELECT *
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+INNER JOIN writers ON films.writerID = writers.writerID
+WHERE directors.personid = writers.personid;
+
+-- 5.Show directors and film titles for films with a score of 8 or higher
+SELECT people.name as "director", films.title
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+INNER JOIN people ON directors.personid = people.personid
+WHERE films.score > 7;
+

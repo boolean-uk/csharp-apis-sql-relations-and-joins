@@ -1,0 +1,77 @@
+-- 1.Show the title and director name for all films
+SELECT films.title, directors.director_name
+FROM films 
+INNER JOIN directors ON films.directorID = directors.directorID;
+
+-- 2.Show the title, director and star name for all films
+SELECT films.title, directors.director_name, stars.star_name
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+INNER JOIN stars ON films.starID = stars.starID;
+
+-- 3.Show the title of films where the director is from the USA
+SELECT films.title
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+WHERE directors.director_country = 'USA';
+
+-- 4.Show only those films where the writer and the director are the same person
+SELECT *
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+INNER JOIN writers ON films.writerID = writers.writerID
+WHERE directors.director_name = writers.writer_name;
+
+-- 5.Show directors and film titles for films with a score of 8 or higher
+SELECT directors.director_name, films.title
+FROM films
+INNER JOIN directors ON films.directorID = directors.directorID
+WHERE films.score > 7;
+
+-- 6.Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables.
+
+-- 6.1 Show title and writers of films released after 1980
+SELECT films.title, writers.writer_name
+FROM films
+INNER JOIN writers ON films.writerID = writers.writerID
+WHERE films.release_year > 1980;
+
+-- 6.2 Show title and name of stars in films where the director is from USA
+SELECT films.title, stars.star_name
+FROM films
+INNER JOIN stars ON films.starID = stars.starID
+INNER JOIN directors ON films.directorID = directors.directorID
+WHERE directors.director_country = 'USA';
+
+-- 6.3 Show stars and film title for films with a score of less than 8
+SELECT stars.star_name, films.title
+FROM films
+INNER JOIN stars ON films.starID = stars.starID
+WHERE films.score < 8; 
+
+-- 6.4 Show film title, stars, directors and writer for all films
+SELECT films.title as "film", stars.star_name as "star", directors.director_name as "director", writers.writer_name as "writer"
+FROM films
+INNER JOIN stars ON films.starID = stars.starID
+INNER JOIN directors ON films.directorID = directors.directorID
+INNER JOIN writers ON films.writerID = writers.writerID;
+
+-- 6.5 Show number of films where director and writer is the same person
+SELECT COUNT(*) as "films where director is also writer"
+FROM films
+INNER JOIN writers ON films.writerID = writers.writerID
+INNER JOIN directors ON films.directorID = directors.directorID
+WHERE directors.director_name = writers.writer_name;
+
+-- 6.6 Show everything
+SELECT *
+FROM films
+RIGHT JOIN directors ON films.directorID = directors.directorID
+RIGHT JOIN writers ON films.writerID = writers.writerID
+RIGHT JOIN stars ON films.starID = stars.starID;
+
+-- 6.7 Show film title and director of all films apart from those where the director is from the USA
+SELECT films.title, directors.director_name
+FROM films
+INNER JOIN director ON films.directorID = directors.directorID
+WHERE NOT directors.director_country = 'USA';
