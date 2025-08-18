@@ -182,4 +182,13 @@ left join movie_cast mc on m.id = mc.featured_in_fk
 left join people p on m.star_fk = p.id
 where m.id in (1,2,3,4)
 
+SELECT m.title, mc.name
+from movie m 
+left join movie_cast mc on m.id = mc.featured_in_fk
+left join people p on m.star_fk = p.id
+where m.id in (1,2,3,4)
+ORDER BY m.id DESC
+
+
+
 ```
