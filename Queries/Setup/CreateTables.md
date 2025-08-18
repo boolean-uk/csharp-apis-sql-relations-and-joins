@@ -20,9 +20,9 @@ CREATE TABLE Writer(
 CREATE TABLE Film(
     id SERIAL PRIMARY KEY, 
     title VARCHAR (100) NOT NULL,
-    director VARCHAR (100) NOT NULL REFERENCES Director(name),
-    star VARCHAR (100) NOT NULL REFERENCES Star(name), 
-    Writer VARCHAR (100) NOT NULL REFERENCES Writer(name),
+    director VARCHAR (100) REFERENCES Director(name),
+    star VARCHAR (100) REFERENCES Star(name), 
+    Writer VARCHAR (100) REFERENCES Writer(name),
     year INT NOT NULL,
     genre VARCHAR (100) NOT NULL, 
     score INT NOT NULL
