@@ -1,0 +1,75 @@
+
+# Show the title and director name for all films
+SELECT f.title, p.name FROM films f
+LEFT JOIN directors d ON d.film_fk = f.id
+LEFT JOIN people p ON p.id = d.person_fk
+
+
+# Show the title, director and star name for all films
+SELECT f.title, dir.name AS director_name, wri.name AS writer_name, sta.name AS star_name FROM films f
+LEFT JOIN directors d ON d.film_fk = f.id
+LEFT JOIN people dir ON dir.id = d.person_fk
+
+LEFT JOIN writers w ON w.film_fk = f.id
+LEFT JOIN people wri ON wri.id = w.person_fk
+
+LEFT JOIN filmcast fc ON fc.film_fk = f.id
+LEFT JOIN people sta ON sta.id = fc.person_fk
+
+
+# Show the title of films where the director is from the USA
+SELECT f.title FROM films f
+LEFT JOIN directors d ON d.film_fk = f.id
+LEFT JOIN people p ON p.id = d.person_fk
+LEFT JOIN countries c ON c.id = p.country_fk
+WHERE c.countryname = 'USA'
+
+
+# Show only those films where the writer and the director are the same person
+SELECT f.title FROM films f
+LEFT JOIN directors d ON d.film_fk = f.id
+LEFT JOIN writers w ON w.film_fk = f.id  
+WHERE w.person_fk = d.person_fk;
+
+
+# Show directors and film titles for films with a score of 8 or higher
+SELECT f.title, dir.name FROM films f
+LEFT JOIN directors d ON d.film_fk = f.id
+LEFT JOIN people dir ON dir.id = d.person_fk
+WHERE f.score > 7;
+
+
+# Make at least 5 more queries to demonstrate your understanding of joins, and other relationships between tables.
+
+#6
+SELECT f.title FROM films f
+LEFT JOIN directors d ON d.film_fk = f.id
+LEFT JOIN writers w ON w.film_fk = f.id  
+WHERE NOT w.person_fk = d.person_fk;
+
+#7
+SELECT f.title FROM films f
+WHERE f.score > 8 AND f.year > 1985
+
+#8
+SELECT f.title FROM films f
+LEFT JOIN filmcast fc ON fc.film_fk = f.id
+LEFT JOIN people sta ON sta.id = fc.person_fk
+WHERE sta.dob = '1974-11-11'
+
+#9
+SELECT sta.name FROM films f
+LEFT JOIN filmcast fc ON fc.film_fk = f.id
+LEFT JOIN people sta ON sta.id = fc.person_fk
+WHERE f.YEAR < 1980;
+
+#10
+SELECT p.name FROM people p
+WHERE dob = '1974-11-11'
+
+
+
+
+
+
+todo cast
